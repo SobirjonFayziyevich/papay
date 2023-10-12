@@ -2,8 +2,7 @@
 console.log("web serverni boshladik");
 const express = require("express");
 const app = express();
-const fs = require("fs");
-
+const router = require("./router"); //router.jsni chaqirib olayopmz.
 //MongoDB connect.
 
 // let user;
@@ -37,6 +36,7 @@ app.set("views", "views");
 app.set("view engine",  "ejs",);
 
 // 4 Routing code
+app.use("/", router);  //expressga router.js ni bogladik.
 
 
 module.exports = app;
