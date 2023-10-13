@@ -34,13 +34,13 @@ const memberSchema = new mongoose.Schema({ // Schema yaratib olayopmiz.
             message: "{VALUE} is not among permitted values" // valueni ichida bulmagan tashqaridan malumot kelsa xatolik bulsin.
         }
     },
-    mb_full_name: {
+
+    mb_address: {
         type: String,
         required: false
     },
-    mb_adress: {
-        type: String,
-        required: false
+    mb_description: {
+        type: String, required: false
     },
     mb_image: {
         type: String,
@@ -51,6 +51,35 @@ const memberSchema = new mongoose.Schema({ // Schema yaratib olayopmiz.
         required: false,
         default: "N"
     },
+    mb_top: {
+        type: string,
+        required:false,
+        default: "N",
+        enum: { //enum bu oldindan belgilab olingan qiymat.
+            values: "{VALUE} is not among permitted vlues"
+        },
+    },
+    mb_views: {
+        type: Number;
+        required: false;
+        default: 0
+    },
+    mb_likes: {
+        type: Number;
+        required: false;
+        default: 0
+    },
+    mb_follow_cnt: {
+        type: Number;
+        required: false;
+        default: 0
+    },
+    mb_subscriber_cnt: {
+        type: Number;
+        required: false;
+        default: 0
+    },
+    {timestamps: true} // createdAt  va updatedAt oladi.
 });
 
 // modelni shakillantirib oldik.
