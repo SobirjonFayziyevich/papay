@@ -14,9 +14,11 @@ const router = require("./router"); //router.jsni chaqirib olayopmz.
 //     }
 // });
 
-//MongoDB chaqirish:
-const db = require("./server").db();
-const mongodb = require("mongodb");
+// //MongoDB chaqirish:
+// const db = require("./server").db();
+// const mongodb = require("mongodb");
+
+// mongoose orqali clientni chaqirib olamiz.
 
 //1: Kirish code
 // Har qanday browserdn kelayotgan requestlar un public folder ochiq degani.
@@ -30,7 +32,6 @@ app.use(express.urlencoded({extended: true}));
 
 // 2: Session code
 // 3: Views code
-
 //ejs orqali backend ni ichida frontendni yasash.
 app.set("views", "views");
 app.set("view engine",  "ejs",);
