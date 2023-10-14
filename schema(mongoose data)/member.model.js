@@ -52,34 +52,34 @@ const memberSchema = new mongoose.Schema({ // Schema yaratib olayopmiz.
         default: "N"
     },
     mb_top: {
-        type: string,
+        type: String,
         required:false,
-        default: "N",
+        default: "N"
         enum: { //enum bu oldindan belgilab olingan qiymat.
             values: "{VALUE} is not among permitted vlues"
         },
     },
     mb_views: {
-        type: Number;
-        required: false;
+        type: Number,
+        required: false,
         default: 0
     },
     mb_likes: {
-        type: Number;
-        required: false;
+        type: Number,
+        required: false,
         default: 0
     },
     mb_follow_cnt: {
-        type: Number;
-        required: false;
+        type: Number,
+        required: false,
         default: 0
     },
     mb_subscriber_cnt: {
-        type: Number;
-        required: false;
+        type: Number,
+        required: false,
         default: 0
     },
-    {timestamps: true} // createdAt  va updatedAt oladi.
+    timestamps: true // createdAt  va updatedAt oladi.
 });
 
 // modelni shakillantirib oldik.
