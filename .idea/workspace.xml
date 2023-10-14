@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema(mongoose data)/member.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/schema(mongoose data)/member.model.js" afterDir="false" />
-    </list>
+    <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,7 +64,7 @@
       <workItem from="1697118533770" duration="655000" />
       <workItem from="1697162304378" duration="7591000" />
       <workItem from="1697260351844" duration="4211000" />
-      <workItem from="1697278677537" duration="64000" />
+      <workItem from="1697278677537" duration="219000" />
     </task>
     <servers />
   </component>
