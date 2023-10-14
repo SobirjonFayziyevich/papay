@@ -55,9 +55,9 @@ const memberSchema = new mongoose.Schema({ // Schema yaratib olayopmiz.
         type: String,
         required:false,
         default: "N"
-        enum: { //enum bu oldindan belgilab olingan qiymat.
+        enum: { ordernary_enums,               //enum bu oldindan belgilab olingan qiymat.
             values: "{VALUE} is not among permitted vlues"
-        },
+        }
     },
     mb_views: {
         type: Number,
