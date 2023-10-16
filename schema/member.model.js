@@ -1,20 +1,25 @@
-const mongoose = require("mongoose"); // mongooseni chaqirib olayopmiz.
 
-const memberSchema = new mongoose.Schema({ // Schema yaratib olayopmiz.
-    // (EAR modulingdagi)  member buyich amlumotlarni joylashtirib chiqamiz.
+
+const mongoose = require("mongoose"); // mongooseni chaqirib olayopmiz.
+const { member_type_enums, member_status_enums, ordernary_enums } = require("../lib/config");
+
+
+const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yaratib olayopmiz.
+    // (EAR modulingdagi)  member buyich malumotlarni joylashtirib chiqamiz.
     mb_nick: {
         type: String,
         required: true,
-        index: {unique: true, sparse: true} // kimdir ishlatgan nickni qayta ishlatsa xatoli deb chiqarishi un
+        index: {unique: true, sparse: true}, // kimdir ishlatgan nickni qayta ishlatsa xatoli deb chiqarishi un
     },
     mb_phone: {
         type: String,
         required: true,
+        index: {unique: true, sparse: true},
     },
     mb_password: {
         type: String,
-        required: true,
-        select: false // keyinchalik bydefault qilib qaytarmasligi un .
+        required: false,
+        select: false, // keyinchalik bydefault qilib qaytarmasligi un .
     },
     mb_type: {
         type: String,
@@ -37,26 +42,26 @@ const memberSchema = new mongoose.Schema({ // Schema yaratib olayopmiz.
 
     mb_address: {
         type: String,
-        required: false
+        required: false,
     },
     mb_description: {
         type: String, required: false
     },
     mb_image: {
         type: String,
-        required: false
+        required: false,
     },
     mb_point: {
-        type: Number,
+        type: String,
         required: false,
-        default: "N"
+        default: 0
     },
     mb_top: {
         type: String,
         required:false,
         default: "N",
         enum: {
-            values: ordernary_enums,               //enum bu oldindan belgilab olingan qiymat.
+            values: ordernary_enums,   //enum bu oldindan belgilab olingan qiymat.
             message: "{VALUE} is not among permitted values"
         }
     },
@@ -80,10 +85,11 @@ const memberSchema = new mongoose.Schema({ // Schema yaratib olayopmiz.
         required: false,
         default: 0
     },
-    timestamps: true // createdAt  va updatedAt oladi.
-});
+},
+    {timestamps: true}  // createdAt  va updatedAt oladi.
+);
 
 // modelni shakillantirib oldik.
 module.exports = mongoose.model("Member", memberSchema);
-// member.model.jsdan qaytgn narsa bu model....
+// member.model.jsdan qaytgan narsa bu model....
 

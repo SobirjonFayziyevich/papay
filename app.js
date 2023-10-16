@@ -37,7 +37,8 @@ app.set("views", "views");
 app.set("view engine",  "ejs",);
 
 // 4 Routing code
-app.use("/", router);  //expressga router.js ni bogladik.
+app.use("/", router); //expressga router.js ni bogladik.//XARIDORLAR un kerak bulgan frontend loyihasi.
+// app.use("/resto", router_bssr); // Asosan(ADMINvaRESTAUTANT USER)lari un kerakli loyiha.
 
 
 module.exports = app;
