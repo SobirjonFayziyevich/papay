@@ -2,6 +2,7 @@
 const MemberModel = require("../schema/member.model");       // Schema modelni chaqirib olamiz.
 const Definer = require("../lib/mistake");
 const assert = require("assert");
+const bcrypt = require("bcrypt");
 
 
 class Member{
@@ -27,23 +28,24 @@ class Member{
         }
     }
 
-    // async loginData(input) {
-    //     try {
-    //         const member = await this.memberModel
-    //             .findOne({mb_nick: input.mb_nick}, {mb_nick: 1, mb_password: 1})
-    //             .exec();
-    //         console.log("member:::", member);
-    //
-    //              // assert.ok(member, Definer.auth_err3);
-    //              //
-    //              // const isMatch = input.mb_password === member.mb_password;
-    //              // assert.ok(isMatch, Definer.auth_err4);
-    //              //
-    //              // return await this.memberModel.findOne({mb_nick: input.mb_nick})
-    //              //     .exec();
-    //     } catch (err) {
-    //         throw err;
-    //     }
-    // }
+    async loginData(input) {
+        try {
+            const member = await this.memberModel
+                .findOne({mb_nick: input.mb_nick}, {mb_nick: 1, mb_password: 1,})
+                .exec();
+            console.log("member:::", member);
+
+                 assert.ok(member, Definer.auth_err3);
+
+                 const isMatch = input.mb_password === member.mb_password; // inputni ichidagi mb_pasword bn memeberni ichida mb_password teng bulsa.
+                 assert.ok(isMatch, Definer.auth_err4);
+
+                 return await this.memberModel
+                     .findOne({mb_nick: input.mb_nick})
+                     .exec();
+        } catch (err) {
+            throw err;
+        }
+    }
 }
 module.exports = Member;
