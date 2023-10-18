@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/controllers/restaurantController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/router_bssr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/includes/footer.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/includes/header.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/login-page.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/signup.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Member.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Member.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +108,7 @@
       <workItem from="1697530350130" duration="8020000" />
       <workItem from="1697603397068" duration="2045000" />
       <workItem from="1697608607185" duration="3988000" />
-      <workItem from="1697621891646" duration="865000" />
+      <workItem from="1697621891646" duration="1994000" />
     </task>
     <servers />
   </component>
