@@ -1,3 +1,6 @@
+
+
+
 // classlar orqali boglanayopti
 const MemberModel = require("../schema/member.model");       // Schema modelni chaqirib olamiz.
 const Definer = require("../lib/mistake");
@@ -35,7 +38,7 @@ class Member{
     async loginData(input) {
         try {
             const member = await this.memberModel
-                .findOne({mb_nick: input.mb_nick}, {mb_nick: 1, mb_password: 1,})
+                .findOne({mb_nick: input.mb_nick}, {mb_nick: 1, mb_password: 1})
                 .exec();
             console.log("member:::", member);
 

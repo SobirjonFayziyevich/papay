@@ -5,8 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/restaurantController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/router_bssr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/includes/footer.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/includes/header.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/login-page.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/signup.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/Member.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Member.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +62,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.7.0&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.7.0&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/fayziev/Desktop/papay/controllers&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -59,6 +73,10 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/controllers" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/schema" />
     </key>
@@ -99,7 +117,12 @@
       <workItem from="1697293885169" duration="17173000" />
       <workItem from="1697426559876" duration="9158000" />
       <workItem from="1697460769530" duration="13657000" />
-      <workItem from="1697508203384" duration="9970000" />
+      <workItem from="1697508203384" duration="10300000" />
+      <workItem from="1697525982125" duration="127000" />
+      <workItem from="1697530350130" duration="8020000" />
+      <workItem from="1697603397068" duration="2045000" />
+      <workItem from="1697608607185" duration="3988000" />
+      <workItem from="1697621891646" duration="865000" />
     </task>
     <servers />
   </component>
