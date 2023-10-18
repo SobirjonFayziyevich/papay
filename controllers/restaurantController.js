@@ -21,6 +21,8 @@ restaurantController.signupProcess = async (req, res ) => {
         member = new Member(),
             new_member = await member.signupData(data);   //ichida request body yuborilyabdi
 
+        // SESSION
+
         res.json({state: 'succeed', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
     } catch(err)  {
         console.log(`ERROR, cont/signup, ${err.message}`);
