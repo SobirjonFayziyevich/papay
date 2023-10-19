@@ -4,34 +4,43 @@ const express = require("express");
 const app = express();
 const router = require("./router"); //router.jsni chaqirib olayopmz.
 const router_bssr = require("./router_bssr.js");
-//MongoDB connect.
 
-// let user;
-// fs.readFile("database/user.json", "utf8", (err, data) => {
-//     if(err) {
-//         console.log("ERROR:", err)
-//     } else {
-//         user = JSON.parse(data)
-//     }
-// });
 
-// //MongoDB chaqirish:
-// const db = require("./server").db();
-// const mongodb = require("mongodb");
+let session = require("express-session");  // express sessionni chaqirib oldik.
+const MongoDBStore = require("connect-mongodb-session")(session);         // mongodbni storej classini  hosil q.
+const store = new MongoDBStore({                           // MongoDBStore orqali (store) objectini yasadik
+    uri: process.env.MONGO_URL,                                      // MONGO_URL ni process.env ichidan olib berayopmiz
+    collection: "sessions",                                 // session azuntikeyshin  orqali collectionni hosil qilayopmiz
+});
 
-// mongoose orqali clientni chaqirib olamiz.
-
-//1: Kirish code
-// Har qanday browserdn kelayotgan requestlar un public folder ochiq degani.
+// 1: Kirish code
+                  // Har qanday browserdn kelayotgan requestlar un public folder ochiq degani.
 app.use(express.static("public"));
-
 //json formatdagi datani objectga exchange qilish.
 app.use(express.json());
-
 //html formatdan qabul qilinadigan datalarni serverga kiritish
 app.use(express.urlencoded({extended: true}));
 
 // 2: Session code
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,               // secret kodimizni joyladik.
+        cookie: {
+            maxAge: 1000 * 60 * 30,                        // malumt 30 minutgacha cookieda aqlanib turadi.
+        },
+        store: store,                                   // store storeda saqlansin
+        resave: true,
+        saveUninitialized: true,
+    })
+);
+
+               // har bir kelayotgan req un mantiq yozsak.
+app.use(function(req, res, next){
+    res.locals.member = req.session.member;
+    next();
+})
+
+
 // 3: Views code
 //ejs orqali backend ni ichida frontendni yasash.
 app.set("views", "views");

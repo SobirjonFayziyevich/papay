@@ -4,6 +4,18 @@ const Member = require("../models/Member");
 // memberController object methodlari orqali boglanayopti
 let restaurantController = module.exports;
 
+restaurantController.getMyRestaurantData = async (req, res) => {
+    try {
+        console.log("GET: cont/getMyRestaurantData");
+     // TODO: Get my restaurant products  //product controllerlar ochsak malumotni yozamiz.
+
+        res.render('restaurant-menu');
+    } catch (err) {
+        console.log(`ERROR, cont/getMyRestaurantData, ${err.message}`);
+        res.json({state: 'fail', message: err.message});
+    }
+};
+
 restaurantController.getSignupMyRestaurant = async (req, res) => {
     try {
         console.log("GET: cont/getSignupMyRestaurant");
@@ -12,7 +24,7 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
         console.log(`ERROR, cont/getSignupMyRestaurant, ${err.message}`);
         res.json({state: 'fail', message: err.message});
     }
-}
+};
 
 restaurantController.signupProcess = async (req, res ) => {
     try {
@@ -21,9 +33,13 @@ restaurantController.signupProcess = async (req, res ) => {
         member = new Member(),
             new_member = await member.signupData(data);   //ichida request body yuborilyabdi
 
+        req.session.member = new_member;      //req ichiga sessionni hosil qilib uni ichiga memberni save qilayopmiz.
+        res.redirect('/resto/products/menu');   //products/menu rutrga malumotni yuborayopmz.
+
+
         // SESSION
 
-        res.json({state: 'succeed', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
+        // res.json({state: 'succeed', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
     } catch(err)  {
         console.log(`ERROR, cont/signup, ${err.message}`);
         res.json({state: 'fail', message: err.message}); // standartdagi javob xato bulsa
@@ -47,7 +63,12 @@ restaurantController.loginProcess = async (req, res ) => {
               member = new Member(),
              result = await member.loginData(data);   //ichida request body yuborilyabdi
 
-        res.json({ state: "succeed", data: result}); //standartdagi javob muaffaqiyatli bulsa
+        req.session.member = result;
+        req.session.save(function() {
+           res.redirect('/resto/products/menu');
+        })
+
+        // res.json({ state: "succeed", data: result}); //standartdagi javob muaffaqiyatli bulsa
     } catch(err)  {
         console.log(`ERROR, cont/login, ${err.message}`);
         res.json({state: 'fail', message: err.message}); // standartdagi javob xato bulsa
@@ -57,4 +78,12 @@ restaurantController.loginProcess = async (req, res ) => {
 restaurantController.logout = (req, res ) => {
     console.log("GET cont.logout");
     res.send("logout page");
+};
+
+restaurantController.checkSessions = (req, res ) => {
+    if (req.session?.member) {
+        res.json({ state: "succeed", data: req.session.member });
+    } else {
+        res.json({state: "fail", message: "You are not authenticated"});
+    }
 };
