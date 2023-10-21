@@ -21,7 +21,7 @@ memberController.signup = async (req, res ) => {
 };
 
 memberController.login = async (req, res ) => {
-    try {    // satandartlarni qurish:
+    try {                                     // satandartlarni qurish:
         console.log("POST: cont/login");    //routerdan kirib kelgan req turi.
         const data = req.body,             //req body qismidan malumot olamiz.
               member = new Member(),

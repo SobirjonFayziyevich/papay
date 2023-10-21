@@ -16,16 +16,16 @@ class Member{
         try {
 
             const salt = await bcrypt.genSalt();
-            input.mb_password = await bcrypt.hash(input.mb_password, salt); // inputni ichidagi mb_paswordni uzgartirmoqchmiz,
+            input.mb_password = await bcrypt.hash(input.mb_password, salt);    // inputni ichidagi mb_paswordni uzgartirmoqchmiz,
 
             const new_member = new this.memberModel(input);  // schema modeldan  class sifatida foydalanib uni ichida datani berib, yangi object hosil qilib
              let result;
             try {
-                result = await new_member.save();    // u objectni ichida save methodan foydalangan holda memberni hosil qilamiz
+                result = await new_member.save();                              // u objectni ichida save methodan foydalangan holda memberni hosil qilamiz
             } catch (mongo_err) {
                 console.log(mongo_err);
 
-                throw new Error(Definer.auth_err1);  //definer classsini yasab olamiz.
+                throw new Error(Definer.auth_err1);                            //definer classsini yasab olamiz.
             }
 
             result.mb_password = "";

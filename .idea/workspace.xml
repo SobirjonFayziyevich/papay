@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/controllers/productController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/memberController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/memberController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/restaurantController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/restaurantController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Member.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Member.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router_bssr.js" beforeDir="false" afterPath="$PROJECT_DIR$/router_bssr.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +50,8 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.7.0&quot;,
     &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.7.0&quot;,
@@ -56,7 +61,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.qodana&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -111,7 +116,17 @@
       <workItem from="1697603397068" duration="2045000" />
       <workItem from="1697608607185" duration="3988000" />
       <workItem from="1697621891646" duration="1994000" />
-      <workItem from="1697676509056" duration="12598000" />
+      <workItem from="1697676509056" duration="12975000" />
+      <workItem from="1697713544151" duration="2241000" />
+      <workItem from="1697723960823" duration="1204000" />
+      <workItem from="1697725182413" duration="34000" />
+      <workItem from="1697725426763" duration="819000" />
+      <workItem from="1697727121110" duration="7000" />
+      <workItem from="1697727483938" duration="1632000" />
+      <workItem from="1697732125837" duration="1308000" />
+      <workItem from="1697766646524" duration="5217000" />
+      <workItem from="1697808019963" duration="1231000" />
+      <workItem from="1697809261139" duration="11808000" />
     </task>
     <servers />
   </component>
