@@ -2,7 +2,7 @@
 console.log("web serverni boshladik");
 const express = require("express");
 const app = express();
-const router = require("./router"); //router.jsni chaqirib olayopmz.
+const router = require("./router");       //router.jsni chaqirib olayopmz.
 const router_bssr = require("./router_bssr.js");
 
 
@@ -14,7 +14,7 @@ const store = new MongoDBStore({                           // MongoDBStore orqal
 });
 
 // 1: Kirish code
-                  // Har qanday browserdn kelayotgan requestlar un public folder ochiq degani.
+                  // Har qanday browserdan kelayotgan requestlar un public folder ochiq degani.
 app.use(express.static("public"));
 //json formatdagi datani objectga exchange qilish.
 app.use(express.json());
