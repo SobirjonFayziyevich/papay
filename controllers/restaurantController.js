@@ -1,10 +1,7 @@
-
 /* object yasalib uni modulening ichidagi exportga tenglashtirilyabdi
  object da methodlari orqali chaqirilyabdi
  controllerlar object orqali quriladi, model class lar orqali quramiz
  */
-
-
 const Member = require("../models/Member");
 
 let restaurantController = module.exports;
@@ -34,27 +31,21 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
     }
 }
 
-
-
 restaurantController.signupProcess = async (req, res) => {
     try {
         console.log("POST: cont/signup");
         const data = req.body;
-        console.log("body:::", req.body);
+        console.log("body:", req.body); // Make sure to import and instantiate the Member class correctly
+        (member =  new Member()), (new_member = await member.signupData(data));
 
-        const member = new Member();   // Make sure to import and instantiate the Member class correctly
-        new_member = await member.signupData(data);
-        // req.session.member = await member.signupData(data);
-
-        req.session.number = new_member;
-        res.redirect("/resto/products/menu");     //malumotni yunaltirayotdi.
-
+        req.session.member = new_member;
+        res.redirect("/resto/products/menu");
+        // console.log("member", member);
     } catch (err) {
-        console.log(`ERROR, cont/signup, ${err.message}`);
         res.json({ state: 'fail', message: err.message });
+        console.log(err.message);
     }
 };
-
 
 restaurantController.getLoginMyRestaurant = async (req, res ) => {
     try {
@@ -72,8 +63,8 @@ restaurantController.loginProcess = async (req, res ) => {
         const data = req.body;
         console.log("body:", req.body),
 
-        member = new Member(),    //ichida request body yuborilyabdi
-        result = await member.loginData(data);
+            member = new Member(),    //ichida request body yuborilyabdi
+            result = await member.loginData(data);
 
         req.session.member = result;
         req.session.save(function () {     //login bolgandan ken qaysi page ga borishi mumkinligini korsatyabmiz
@@ -110,10 +101,4 @@ restaurantController.checkSessions = (req, res ) => {
         res.json ({state: "fail", message: "You aren't authenticated"});
     }
 };
-// agar session mavjud bolsa sessiondagi ma'lumotlarni brouserga yuborsin
-
-
-
-
-
 
