@@ -1,0 +1,1 @@
+const ProductModel = require("../schema/product.model");   // Product Schemani export qilib oldik

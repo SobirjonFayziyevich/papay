@@ -1,7 +1,11 @@
 
 
 const mongoose = require("mongoose"); // mongooseni chaqirib olayopmiz.
-const { member_type_enums, member_status_enums, ordernary_enums } = require("../lib/config");
+const {
+    member_type_enums,
+    member_status_enums,
+    ordinary_enums,
+} = require("../lib/config");
 
 
 const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yaratib olayopmiz.
@@ -23,8 +27,8 @@ const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yarati
     },
     mb_type: {
         type: String,
-        required: false,
-        default: "RESTAURANT",
+        required: "RESTAURANT",
+        default: "USER",
         enum: {
             values: member_type_enums,
             message: "{VALUE} is not among permitted values" // valueni ichida bulmagan tashqaridan malumot kelsa xatolik bulsin.
@@ -61,7 +65,7 @@ const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yarati
         required:false,
         default: "N",
         enum: {
-            values: ordernary_enums,   //enum bu oldindan belgilab olingan qiymat.
+            values: ordinary_enums,   //enum bu oldindan belgilab olingan qiymat.
             message: "{VALUE} is not among permitted values"
         }
     },

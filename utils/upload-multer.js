@@ -1,8 +1,8 @@
 
 
-const path = require('path');
+const path = require('path');  //core package
 const multer = require('multer');
-const uuid = require('uuid');
+const uuid = require('uuid');//32 xonali uuuid yasab beradi
 
 
 const product_storage = multer.diskStorage({ // documentatinga kura diskstorageni yasab olib product storagega tenglashtirib olayoman.
@@ -10,7 +10,7 @@ const product_storage = multer.diskStorage({ // documentatinga kura diskstoragen
     destination: function (req, file, cb) {       //destination orqali qayerga yuklashni kursatayopmz req bulayopti fileni olayopti.
         cb(null, './uploads/products' );                // uploads folderini ichiga products fileni yukladik.
     },
-    filename: function(req, file,cb) {
+    filename: function(req, file,cb) {  //  bu filename yuklanayotgan picturelar borligini kurdatagi.
         console.log(file);
         const extension = path.parse(file.originalname).ext;  // extension methodni chaqirib olib pathdegan packgeda
         // parse metodni kirib file nomini kiritib ext bu rasm orqasidagi  jpeg belgi.
