@@ -65,7 +65,7 @@ const memberSchema = new mongoose.Schema({ // (class deb nomladik) Schema yarati
         required:false,
         default: "N",
         enum: {
-            values: ordinary_enums,   //enum bu oldindan belgilab olingan qiymat.
+            values: "N",   //enum bu oldindan belgilab olingan qiymat.
             message: "{VALUE} is not among permitted values"
         }
     },

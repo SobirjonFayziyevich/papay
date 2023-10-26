@@ -1,6 +1,6 @@
 
 const assert = require("assert");
-const {shapeIntoMongooseObjectID} = require("../lib/config");   // Product Schemani export qilib oldik.
+const {shapeIntoMongooseObjectId} = require("../lib/config");   // Product Schemani export qilib oldik.
 const Definer = require("../lib/mistake");
 const ProductModel = require("../schema/product.model");
 
@@ -16,7 +16,7 @@ class Product {
     }
     async addNewProductData(data, member) {   // method yasab oldik.
         try {
-           data.restaurant_mb_id = shapeIntoMongooseObjectID(member._id); // memberIDni  MONGODB ObjectID aylantirilmoqda member._id ichidan.
+           data.restaurant_mb_id = shapeIntoMongooseObjectId(member._id); // memberIDni  MONGODB ObjectID aylantirilmoqda member._id ichidan.
 
 
             const new_product = new this.productModel(data);  // bu schema model
@@ -27,6 +27,34 @@ class Product {
           } catch (err) {
             throw err;
          }
+    }
+
+
+    async updateChosenProductData(id, updated_data, mb_id) {   // method yasab oldik.
+        try {
+              id = shapeIntoMongooseObjectId(id); // memberIDni  MONGODB ObjectID aylantirilmoqda _id ichidan.
+             mb_id = shapeIntoMongooseObjectId(mb_id);
+
+            const result = await this.productModel.findOneAndUpdate(
+                {_id: id, restaurant_mb_id: mb_id}, // 1chi object filtering buladi qaysi objectda update qilmoqchisz.
+                                                     // id === id, restaurant mb_idsi === mb_idga.
+                updated_data,                 // uzgartirmoqchi bulgan data yozamiz.
+                {
+                    runValidators: true,  //uzgargan datani yuborsa.bularni yozishimizdan sabab uzgargan qiymatni kurmoqchiman.
+                    lean: true,
+                    returnDocument: "after", //yangilangan data ni bizga beradi
+
+                    // runValidators: true,  //uzgargan datani yuborsa.bularni yozishimizdan sabab uzgargan qiymatni kurmoqchiman.
+                    // lean: true,
+                    // returnDocument: "before",  // eski data ni beradi.
+                }
+                ).exec();
+
+            assert.ok(result, Definer.general_err1);  //natijani tekshiramiz. agar malumotimiz uptade bulmagan bulsa, xatolikni chiqarsin.
+            return result;                             // hammasi ajoyib bulgan bulsa return qilsin.
+          } catch (err) {
+            throw err;
+        }
     }
 }
 

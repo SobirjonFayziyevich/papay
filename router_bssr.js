@@ -28,10 +28,13 @@ router_bssr.get("/check-me",restaurantController.checkSession);    // sessionni 
 
 router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
 
-router_bssr.post("/products/create", restaurantController.validateAuthRestaurant,     //mahsulotni hosil qilih.
+router_bssr.post("/products/create",
+    restaurantController.validateAuthRestaurant,     //mahsulotni hosil qilih.
     uploadProductImage.array("product_images", 5), productController.addNewProduct);
 
-router_bssr.post("products/edit/:id", productController.updateChosenProduct);       //mahsulot qushadigan.
+router_bssr.post("/products/edit/:id",
+    restaurantController.validateAuthRestaurant,
+    productController.updateChosenProduct);
 
 
 //bu faylni expoert qilamiz boshqa faylga.

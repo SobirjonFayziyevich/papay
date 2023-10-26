@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema({
         required: false,
         default: 0,
     },
-    product_left_count: {
+    product_left_cnt: {
         type: Number,
         required: true,
     },
