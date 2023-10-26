@@ -44,7 +44,7 @@ app.use(function(req, res, next){
 // 3: Views code
 //ejs orqali backend ni ichida frontendni yasash.
 app.set("views", "views");
-app.set("view engine",  "ejs",);
+app.set("view engine",  "ejs",);  //ejs - backendda frontendni qurishda yordam beradi.
 
 // 4 Routing code
 app.use("/", router); //expressga router.js ni bogladik.//XARIDORLAR un kerak bulgan frontend loyihasi.

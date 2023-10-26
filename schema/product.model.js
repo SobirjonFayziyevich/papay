@@ -9,13 +9,6 @@ const {             //require qilib olayopmiz.qiymatlarni
 
 const Schema = mongoose.Schema; //Schemadan  instinsini olayopmiz.
 
-
-
-
-
-
-
-
 const productSchema = new mongoose.Schema({
    product_name: {
        type: String,
@@ -34,7 +27,7 @@ const productSchema = new mongoose.Schema({
         required: false,
         default: "PAUSED",
         enum: {
-            values: [],
+            values: product_status_enums,
             message: "{VALUE} is not among permitted enum values",
         },
     },
@@ -53,10 +46,10 @@ const productSchema = new mongoose.Schema({
     },
     product_size: {
         type: String,
-        default: normal,
+        default: "normal",
         required: function() {
-            const sized_list = ['dish', 'salad', 'dessert']; //productlar ruyxati.
-            return sized_list.includs(this.product_collection)  //(this) => productSchema
+            const sized_list = ["dish", "salad", "dessert"]; //productlar ruyxati.
+            return sized_list.includes(this.product_collection);  //(this) => productSchema
         },
         enum: {
             values: product_size_enums,
@@ -67,7 +60,7 @@ const productSchema = new mongoose.Schema({
            type: String,
            default: 1,
            required: function () {
-               return (this.product_collection === "drink")  //agarda product_volume (true) bulganda, (product_size) false buladi.
+               return this.product_collection === "drink";  //agarda product_volume (true) bulganda, (product_size) false buladi.
            },
            enum: {
                values: product_volume_enums,
@@ -79,7 +72,7 @@ const productSchema = new mongoose.Schema({
         required: true,
     },
     product_images: {
-       type: Array,// birnechta rasm quyishimiz mumkin bu qiymatni quyib.
+       type: Array,    // birnechta rasm quyishimiz mumkin bu qiymatni quyib.
         required: false,
         default: [],
     },
@@ -100,12 +93,17 @@ const productSchema = new mongoose.Schema({
      },
 
     },
-      {timestamp} // createAT=> malumot hosil qilinganda avtomatik vaqtini quyib beradi.
+    {timestamps: true } // createAT=> malumot hosil qilinganda avtomatik vaqtini quyib beradi.
                           //updateAT => oxirgi malumot uzgartirilgan vaqtini quyib beradi
 );
 
 productSchema.index(
-    {restaurant_mb_id: 1, product_name: 1, product_size: 1},
+    {
+        restaurant_mb_id: 1,
+        product_name: 1,
+        product_size: 1,
+        product_volume: 1,
+    },
     {unique: true}
 ); // index tush bu: 1ta restaurant un birxil nomdagi tovarni, bir size va volume bulsa,databasega yozmasin deg.
 

@@ -23,13 +23,13 @@ router_bssr
     .get("/login", restaurantController.getLoginMyRestaurant)     // membercontrollerni ichidagi loginga borayopti.
     .post("/login", restaurantController.loginProcess);
 
-router_bssr.get("/logout",restaurantController.logout);             // membercontrollerni ichidagi logoutga borayopti.
-router_bssr.get("/check-me",restaurantController.checkSessions);    // sessionni tekshirish
+router_bssr.get("/logout",restaurantController.logoutProcess);             // membercontrollerni ichidagi logoutga borayopti.
+router_bssr.get("/check-me",restaurantController.checkSession);    // sessionni tekshirish
 
 router_bssr.get("/products/menu", restaurantController.getMyRestaurantData);
 
 router_bssr.post("/products/create", restaurantController.validateAuthRestaurant,     //mahsulotni hosil qilih.
-    uploadProductImage.single("product_image"), productController.addNewProduct);
+    uploadProductImage.array("product_images", 5), productController.addNewProduct);
 
 router_bssr.post("products/edit/:id", productController.updateChosenProduct);       //mahsulot qushadigan.
 
