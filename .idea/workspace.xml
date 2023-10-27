@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/productController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/productController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/restaurantController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/restaurantController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router_bssr.js" beforeDir="false" afterPath="$PROJECT_DIR$/router_bssr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/upload-multer.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/upload-multer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Member.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Member.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/home-page.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/home-page.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +34,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="ProblemsViewState">
@@ -137,7 +141,12 @@
       <workItem from="1698308934336" duration="977000" />
       <workItem from="1698310570901" duration="7834000" />
       <workItem from="1698334142752" duration="1896000" />
-      <workItem from="1698370913188" duration="5508000" />
+      <workItem from="1698370913188" duration="19172000" />
+      <workItem from="1698414939204" duration="409000" />
+      <workItem from="1698458312812" duration="12211000" />
+      <workItem from="1698477346907" duration="2649000" />
+      <workItem from="1698480682880" duration="375000" />
+      <workItem from="1698481842663" duration="2077000" />
     </task>
     <servers />
   </component>

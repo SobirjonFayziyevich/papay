@@ -7,15 +7,24 @@ const Product = require("../models/Product");  // Product mantiqini yozib oldik.
 
 let restaurantController = module.exports;
 
-
+restaurantController.home = (req,res) => {
+    try {
+        console.log("GET: cont/home");
+        res.render('home-page');  // home-page.ejs fileimizga malumotni yuborayopti.
+    } catch(err) {
+        console.log(`ERROR: cont/home, ${err.message}`);  //error bulsa qaytar degan qism.
+        res.json({state: "fail", message: err.message});
+    }
+};
 
 restaurantController.getMyRestaurantProducts = async (req, res) => {
     try {
         console.log("GET: cont/getMyRestaurantProducts");
         // TODO get my restaurant products
 
-        const product = new Product(); // Product classidan => product OBJECTINI hosil qilayopmiz
-        const data = await product.getAllProductsDataResto(res.locals.member); //product object ichidan productlarni listini olib beradi
+        const product = new Product();               // Product classidan => product OBJECTINI hosil qilayopmiz
+        const data = await product.getAllProductsDataResto(res.locals.member);
+        //product object ichidan productlarni listini olib beradi
         //kim req qilayotganini biz ( restaurantController.validateAuthRestaurant) manashu yul bn chaqirayotgan edik shuni urniga,
         // app.jsda (res.locals.member) qayerga borishini yuklagandik,va biz(res locals member)ni ichidan datalarni olayopmiz.
 
@@ -40,9 +49,11 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 restaurantController.signupProcess = async (req, res ) => {
     try {
         console.log("POST: cont/signup");
-        const data = req.body;
-         const member = new Member();    //ichida request body yuborilyabdi.//
-        req.session.member = await member.signupData(data);
+        const data = req.body,
+              member= new Member(),   //ichida request body yuborilyabdi.//
+              new_member = await member.signupData(data);
+
+        res.session.member = new_member;
         res.redirect("/resto/products/menu");
     } catch(err){
         console.log(`ERROR, cont/signup, ${err.message}`);

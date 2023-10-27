@@ -11,12 +11,12 @@ const {uploadProductImage} = require("./utils/upload-multer");
 /***************************************************
  *           BSSR  EJS (zamonaviy usul)            *
  ****************************************************/
-
-
 // memberga dahldor routerlar
+router_bssr.get("/",restaurantController.home); // main qismi uchun.
+
 router_bssr
-    .get("/signup", restaurantController.getSignupMyRestaurant)      // membercontrollerni ichidagi signupga borayopti.
-    .post("/signup", restaurantController.signupProcess);
+    .get("/sign-up", restaurantController.getSignupMyRestaurant)      // membercontrollerni ichidagi signupga borayopti.
+    .post("/sign-up", restaurantController.signupProcess);
 
 
 router_bssr
@@ -39,6 +39,3 @@ router_bssr.post("/products/edit/:id",
 
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports = router_bssr;
-
-
-
