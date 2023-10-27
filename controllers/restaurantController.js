@@ -3,19 +3,25 @@
  controllerlar object orqali quriladi, model class lar orqali quramiz
  */
 const Member = require("../models/Member");
+const Product = require("../models/Product");  // Product mantiqini yozib oldik.
 
 let restaurantController = module.exports;
 
 
 
-restaurantController.getMyRestaurantData = async (req, res) => {
+restaurantController.getMyRestaurantProducts = async (req, res) => {
     try {
-        console.log("GET: cont/getMyRestaurantData");
+        console.log("GET: cont/getMyRestaurantProducts");
         // TODO get my restaurant products
 
-        res.render("restaurant-menu");
+        const product = new Product(); // Product classidan => product OBJECTINI hosil qilayopmiz
+        const data = await product.getAllProductsDataResto(res.locals.member); //product object ichidan productlarni listini olib beradi
+        //kim req qilayotganini biz ( restaurantController.validateAuthRestaurant) manashu yul bn chaqirayotgan edik shuni urniga,
+        // app.jsda (res.locals.member) qayerga borishini yuklagandik,va biz(res locals member)ni ichidan datalarni olayopmiz.
+
+        res.render("restaurant-menu", { restaurant_data: data }); //restaurant-menu pagega restarantga tegishli bulgan productlar ruyxati yuborayopmiz.
     } catch(err) {
-        console.log(`ERROR: cont/getMyRestaurantData, ${err.message}`);
+        console.log(`ERROR: cont/getMyRestaurantProducts, ${err.message}`);
         res.json({state: "fail", message: err.message});
     }
 };

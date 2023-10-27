@@ -2,14 +2,11 @@ const Product = require("../models/Product");
 const assert = require("assert");  //ma'lum bir shartni tekshirish va dasturni to'xtatish un ishlatiladigan method.
 const Definer = require("../lib/mistake");  //Definer odatda obyekt yaratish va unga qiymatlar qo'shishda yoki obyektdan qiymatlarni o'chirishda ishlatiladi
 
-let productController = module.exports;
+let productController = module.exports;        // controllerlar OBJECT orqali yasaldi.
 
 productController.getAllProducts = async (req, res) => {       // hamma productlarni oladigam method.
     try {
         console.log("GET: cont/getAllProducts");
-
-
-
     } catch(err) {
         console.log(`ERROR: cont/getAllProducts, ${err.message}`);
         res.json({ state: "fail", message: err.message });
@@ -47,11 +44,11 @@ productController.addNewProduct = async (req, res) => {       // hamma productla
     }
 };
 
-productController.updateChosenProduct = async (req, res) => {       // hamma productlarni oladigam method.
+productController.updateChosenProduct = async (req, res) => {  // hamma productlarni oladigam method.
     try {
         console.log("POST: cont/updateChosenProduct");
-        const product = new Product();                     //product objectini hosil qildik
-        const id = req.params.id;                         //product ID sini paramsni ichidan olayopmiz.
+        const product = new Product();    //product objectini hosil qildik
+        const id = req.params.id;                    //product ID sini paramsni ichidan olayopmiz.
         const result = await product.updateChosenProductData(
             id,
             req.body,

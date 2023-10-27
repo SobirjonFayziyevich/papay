@@ -1,8 +1,8 @@
 
 
-const path = require('path');  //core package
+const path = require('path');         //core package
 const multer = require('multer');
-const uuid = require('uuid');//32 xonali uuuid yasab beradi
+const uuid = require('uuid');                 //32 xonali uuuid yasab beradi
 
 
 const product_storage = multer.diskStorage({ // documentatinga kura diskstorageni yasab olib product storagega tenglashtirib olayoman.

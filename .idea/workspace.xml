@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/productController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/productController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/restaurantController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/restaurantController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/member.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/schema/member.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema/product.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/schema/product.model.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router_bssr.js" beforeDir="false" afterPath="$PROJECT_DIR$/router_bssr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/upload-multer.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/upload-multer.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +135,9 @@
       <workItem from="1698197760063" duration="17478000" />
       <workItem from="1698241808491" duration="22096000" />
       <workItem from="1698308934336" duration="977000" />
-      <workItem from="1698310570901" duration="1722000" />
+      <workItem from="1698310570901" duration="7834000" />
+      <workItem from="1698334142752" duration="1896000" />
+      <workItem from="1698370913188" duration="5508000" />
     </task>
     <servers />
   </component>
