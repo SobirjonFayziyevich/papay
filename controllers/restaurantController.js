@@ -21,7 +21,6 @@ restaurantController.getMyRestaurantProducts = async (req, res) => {
     try {
         console.log("GET: cont/getMyRestaurantProducts");
         // TODO get my restaurant products
-
         const product = new Product();               // Product classidan => product OBJECTINI hosil qilayopmiz
         const data = await product.getAllProductsDataResto(res.locals.member);
         //product object ichidan productlarni listini olib beradi
@@ -48,7 +47,7 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 
 restaurantController.signupProcess = async (req, res ) => {
     try {
-        console.log("POST: cont/signup");
+        console.log("POST: cont/signupProcess");
         const data = req.body,
               member= new Member(),   //ichida request body yuborilyabdi.//
               new_member = await member.signupData(data);
@@ -56,7 +55,7 @@ restaurantController.signupProcess = async (req, res ) => {
         res.session.member = new_member;
         res.redirect("/resto/products/menu");
     } catch(err){
-        console.log(`ERROR, cont/signup, ${err.message}`);
+        console.log(`ERROR, cont/signupProcess, ${err.message}`);
         res.json({ state: "fail", message: err.message});
     }
 };
@@ -73,17 +72,19 @@ restaurantController.getLoginMyRestaurant = async (req, res ) => {
 
 restaurantController.loginProcess = async (req, res ) => {
     try {
-        console.log("POST: cont/login");
+        console.log("POST: cont/loginProcess");
         const data = req.body;
         member = new Member(),    //ichida request body yuborilyabdi
             result = await member.loginData(data);
 
         req.session.member = result;
-        req.session.save(function () {     //login bolgandan ken qaysi page ga borishi mumkinligini korsatyabmiz
-            res.redirect("/resto/products/menu");
+        req.session.save(function () {            //login bolgandan ken qaysi page ga borishi mumkinligini korsatyabmiz
+            // result.mb_type === "ADMIN"                 //sababi bizng user ADMIN emas, restaurant.
+            // ? res.redirect("/resto/all-restaurant")   //ADMIN USER lar login bulganda ishlatamiz.
+              res.redirect("/resto/products/menu");
         });
     } catch(err){
-        console.log(`ERROR, cont/login, ${err.message}`);
+        // console.log(`ERROR, cont/loginProcess, ${err.message}`);
         res.json({state: "fail", message: err.message});
     }
 };

@@ -39,15 +39,17 @@ class Member{
             const member = await this.memberModel
                 .findOne({mb_nick: input.mb_nick}, {mb_nick: 1, mb_password: 1})
                 .exec();
-            console.log("member:::", member);
+            // console.log("member:::", member);
 
-                 assert.ok(member, Definer.auth_err3);
+                 assert.ok(member, Definer.auth_err3);  // user mavjud emas degan xatolik beradi.
 
-                 const isMatch = await bcrypt.compare(input.mb_password, member.mb_password);
-
+                 const isMatch = await bcrypt.compare(
+                     input.mb_password,
+                     member.mb_password
+                 );
                  assert.ok(isMatch, Definer.auth_err4);
 
-                 return await this.memberModel
+                 return await this.memberModel  //mb_nickni malumot olib orqaga qaytarib beradi.
                      .findOne({mb_nick: input.mb_nick})
                      .exec();
         } catch (err) {
