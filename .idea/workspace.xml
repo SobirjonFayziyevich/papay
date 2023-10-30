@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/public/css/login.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Member.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Member.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/home-page.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/home-page.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/includes/footer.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/footer.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/includes/header.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/includes/header.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login-page.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/login-page.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +32,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/css/login.css" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -77,6 +81,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/public/css" />
       <recent name="$PROJECT_DIR$/schema" />
     </key>
   </component>
@@ -146,7 +152,9 @@
       <workItem from="1698458312812" duration="12211000" />
       <workItem from="1698477346907" duration="2649000" />
       <workItem from="1698480682880" duration="375000" />
-      <workItem from="1698481842663" duration="2077000" />
+      <workItem from="1698481842663" duration="3274000" />
+      <workItem from="1698491089660" duration="2530000" />
+      <workItem from="1698626979755" duration="9852000" />
     </task>
     <servers />
   </component>

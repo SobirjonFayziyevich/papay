@@ -9,7 +9,7 @@ body {
 }
 .group_name {
     position: absolute;
-    z-index: 10000;
+    z-index: 100;
     top: 1%;
     color: #efefee;
     font-size: xx-large;
@@ -18,7 +18,7 @@ body {
 
 a.nav-item {
     font-size: 1rem;
-    font-weight: 200;
+    font-weight: 100;
     line-height: 1.5;
 }
 .animation-wrapper {
@@ -28,23 +28,23 @@ a.nav-item {
 
 .sphere-animation {
     position: absolute;
-    top: 30%;
-    left: 80%;
-    width: 380px;
-    height: 380px;
+    top: 50%;
+    left: 50%;
+    width: 580px;
+    height: 580px;
     margin: -290px 0 0 -290px;
 }
 
 .sphere path {
     fill: url(#sphereGradient);
     stroke-width: 1px;
-    stroke: rgba(80,80,80,.35);
+    stroke: rgba(80, 80, 80, 0.35);
     backface-visibility: hidden;
 }
 
 @media (min-width: 500px) {
     .sphere path {
-        stroke-width: .4px;
+        stroke-width: 0.4px;
     }
 }
 
