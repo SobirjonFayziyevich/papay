@@ -67,10 +67,32 @@
 
         <div class="login_input_frame">
             <div class="media_frame">
-               <img class="upload_img_frame" src="/images/default_resto"/>
-                <div></div>
+               <img class="upload_img_frame" src="/images/default_resto.jpg"/>
+                <div class="upload_container">
+                    <span class="media_text">Taom Rasmi</span>
+                    <div class="filebox bs3-primary preview-image">
+                        <input class="upload-name" value="Rasmni tanlang" disabled="disabled">
+                        <label>Rasmni yuklash</label>
+                        <input
+                                type="file"
+                                id="input_file"
+                                name="restaurant_img"
+                                placeholder="passwordni tasdiqlash"
+                                value=""
+                                required
+                                class="upload-hidden form-control-file restaurant_img"
+                        />
+                    </div>
+                    <p class="thumbnail_desc">
+                        Oshxona rasminggizni buyerga yuklang.<br /> Muhim kursatmalar: .jpg,
+                        .jpeg yoki .png. <br />rasmda matn yo'q bo'lishi darkor!
+                    </p>
+                </div>
             </div>
         </div>
+        <button class="login_btn btn" name="signup" type="submit">
+            Ro'yxatdan o'tish
+        </button>
 
     </div>
 </form>

@@ -189,5 +189,84 @@ body {
     justify-content: space-between;
 }
 
+.media_frame .upload_img_frame {
+    position: relative;
+    width: 275px;
+    height: 93%;
+    display: flex;
+    border-radius: 15px;
+}
+.media_frame .upload_container {
+    position: relative;
+    margin-left: 30px;
+    width: 75%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+.media_text {
+    font-family: 'GT Walsheim Pro';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    color: #140342;
+}
+
+.filebox {
+    display: flex;
+    margin-top: 25px;
+
+}
+
+.filebox input[type="file"] { /*inputda 2ta input bor shunga qaysi type file bulgani*/
+   position: relative;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;  /* kursatmasin */
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.filebox label {
+    width: 137px;
+    height: 55px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #6A7A99;
+    border-radius: 0px 8px 8px 0px;
+
+    font-family: 'GT Walsheim Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 26px;
+    color: #FFFFFF;
+}
 
 
+.filebox .upload-name {
+    position: relative;
+    padding: 20px;
+    width: 85%;
+    height: 55px;
+
+    display: flex;
+    background: #dddddd;
+
+    border-radius: 8px 0px 0px 8px;
+    border: 1px solid #dddddd;
+}
+
+.thumbnail_desc {
+    margin-top: 25px;
+    font-family: 'GT Walsheim Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 26px;
+    color: #3532c2;
+}

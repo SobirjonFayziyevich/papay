@@ -8,8 +8,9 @@ productController.getAllProducts = async (req, res) => {       // hamma productl
     try {
         console.log("GET: cont/getAllProducts");
     } catch(err) {
+        res.json({ state: "failed", message: err.message });
         console.log(`ERROR: cont/getAllProducts, ${err.message}`);
-        res.json({ state: "fail", message: err.message });
+
     }
 };
 
@@ -27,15 +28,15 @@ productController.addNewProduct = async (req, res) => {       // hamma productla
         });                                                  // malumot yuklangandan  keyin req.body() bn kelmaydi, req.files bn keladi.
 
         const result = await product.addNewProductData(data, req.member);  // req.member bu validateAuthRestaurant ichidagi yuklab berilgan malumot
-                                                                     // agarda result mavjud bulmasa bizga definer bersin.
+        assert.ok(result, Definer.product_err1);                                                             // agarda result mavjud bulmasa bizga definer bersin.
                                                                           //async function bulsa (await) yozamiz.
-        res.send("ok");
+        // res.send("ok");
 
-       // const html = `<script>
-       //                       alert(new dish added successfully);
-       //                       window.location.replace('/resto/products/menu');
-       //                       </script>`;
-       // res.end(html);
+       const html = `<script>
+                             alert(new dish added successfully);
+                             window.location.replace('/resto/products/menu');
+                             </script>`;
+       res.end(html);
 
 
     } catch(err) {
@@ -54,10 +55,10 @@ productController.updateChosenProduct = async (req, res) => {  // hamma productl
             req.body,
             req.member._id
         );
-        await res.json({state: "success",data: result});
+        res.json({ state: "success", data: result });
     } catch(err) {
         console.log(`ERROR: cont/updateChosenProduct, ${err.message}`);
-        res.json({ state: "fail", message: err.message });
+        res.json({ state: "failed", message: err.message });
     }
 };
 
