@@ -1,11 +1,10 @@
-
-
-
-const express = require("express");
-const router_bssr = express.Router();         // expressni ichidan routerni olib chiqayopmiz.
-const restaurantController = require("./controllers/restaurantController");   // membercontrollerni chaqirib olayopmiz.
-const productController = require("./controllers/productController");
-const {uploadProductImage} = require("./utils/upload-multer");
+// expressni ichidan routerni olib chiqayopmiz.
+// membercontrollerni chaqirib olayopmiz.
+const express=require("express"), router_bssr=express.Router();
+const  restaurantController=require("./controllers/restaurantController");
+const  productController=require("./controllers/productController");
+const uploader_product = require("./utils/upload-multer")("products");
+const uploader_members = require("./utils/upload-multer")("members");
 
 
 /***************************************************
@@ -16,7 +15,9 @@ router_bssr.get("/",restaurantController.home); // main qismi uchun.
 
 router_bssr
     .get("/sign-up", restaurantController.getSignupMyRestaurant)      // membercontrollerni ichidagi signupga borayopti.
-    .post("/sign-up", restaurantController.signupProcess);
+    .post("/sign-up",
+        uploader_members.single("restaurant_img"),
+        restaurantController.signupProcess);
 
 
 router_bssr
@@ -30,7 +31,8 @@ router_bssr.get("/products/menu", restaurantController.getMyRestaurantProducts);
 
 router_bssr.post("/products/create",
     restaurantController.validateAuthRestaurant,     //mahsulotni hosil qilih.
-    uploadProductImage.array("product_images", 5), productController.addNewProduct);
+    uploader_product.array("product_images", 5),
+    productController.addNewProduct);
 
 router_bssr.post("/products/edit/:id",
     restaurantController.validateAuthRestaurant,
