@@ -37,12 +37,14 @@ class Member{
     async loginData(input) {
         try {
             const member = await this.memberModel
-                .findOne({mb_nick: input.mb_nick}, {mb_nick: 1, mb_password: 1})
+                .findOne(
+                    { mb_nick: input.mb_nick },
+                    { mb_nick: 1, mb_password: 1 })
                 .exec();
             // console.log("member:::", member);
 
                  assert.ok(member, Definer.auth_err3);  // user mavjud emas degan xatolik beradi.
-
+                 console.log(member);
                  const isMatch = await bcrypt.compare(
                      input.mb_password,
                      member.mb_password
