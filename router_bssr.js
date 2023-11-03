@@ -24,7 +24,7 @@ router_bssr
     .get("/login", restaurantController.getLoginMyRestaurant)     // membercontrollerni ichidagi loginga borayopti.
     .post("/login", restaurantController.loginProcess);
 
-router_bssr.get("/logout",restaurantController.logoutProcess);             // membercontrollerni ichidagi logoutga borayopti.
+router_bssr.get("/logout",restaurantController.logout);             // membercontrollerni ichidagi logoutga borayopti.
 router_bssr.get("/check-me",restaurantController.checkSession);    // sessionni tekshirish
 
 router_bssr.get("/products/menu", restaurantController.getMyRestaurantProducts);

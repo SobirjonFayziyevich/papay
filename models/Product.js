@@ -17,13 +17,13 @@ class Product {
     //restaurantControllerdan kelayotgan malumotni shuyerga kiritayopmiz.
     async getAllProductsDataResto(member) {
         try {
-            member._id = shapeIntoMongooseObjectId(member._id); // mongodb object ga aylantirib olayopmiz (DATABASE)
-         const result = await this.productModel.find({   // mongodb id qidirayopmiz.
-           restaurant_mb_id: member._id,      // restaurant_mb_id teng bulsin, member_idga tenglashtirib olayopmiz
+            member._id = shapeIntoMongooseObjectId(member._id);      // mongodb object ga aylantirib olayopmiz (DATABASE)
+         const result = await this.productModel.find({        // mongodb id qidirayopmiz.
+           restaurant_mb_id: member._id,                             // restaurant_mb_id teng bulsin, member_idga tenglashtirib olayopmiz
          });
-         assert.ok(result, Definer.general_err1);// member id topish muammo bulsa error hosil qilsin.(hechqanday data qaytganda ishga tushadi)
+         assert.ok(result, Definer.general_err1);                    // member id topish muammo bulsa error hosil qilsin.(hechqanday data qaytganda ishga tushadi)
             return result;
-            // console.log("result:", result);    // resultni tekshirib oldim.
+            // console.log("result:", result);                       // resultni tekshirib oldim.
         } catch(err) {
           throw err;
         }
