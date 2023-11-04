@@ -19,7 +19,7 @@ productController.addNewProduct = async (req, res) => {       // hamma productla
         console.log("POST: cont/addNewProduct");
         assert(req.files, Definer.general_err3);           // fayl yuklanishida xatolik bulsa, xatoni chiqarib beradi.
 
-        const product = new Product();            //  Product service classi asosida product hosil qilib olayopmiz.
+        const product = new Product();     //  Product service modeli asosida product hosil qilib olayopmiz.
                                                           // new Product qiymat olmaydi sababi qiymatni Product.js ichidan emas, tashqaridan olayopti.
         let data = req.body;                               // req.body sidan kelayotgan malumotlarni data yozayopmiz.
 
@@ -33,11 +33,10 @@ productController.addNewProduct = async (req, res) => {       // hamma productla
         // res.send("ok");
 
        const html = `<script>
-                             alert(new dish added successfully);
+                             alert('new dish added successfully');
                              window.location.replace('/resto/products/menu');
                              </script>`;
        res.end(html);
-
 
     } catch(err) {
         console.log(`ERROR: cont/addNewProduct, ${err.message}`);

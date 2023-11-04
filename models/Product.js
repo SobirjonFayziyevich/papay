@@ -59,6 +59,7 @@ class Product {
 
             const result = await this.productModel.findOneAndUpdate(
                 {_id: id, restaurant_mb_id: mb_id},   // 1chi object filtering buladi qaysi objectda update qilmoqchisz.
+                              // restaurant_mb_id ni manosi restarantlar kuop bulganda chalkashib ketmaslik un id quyiladi
                                                            // id === id, restaurant mb_idsi === mb_idga.
                 updated_data,                              // uzgartirmoqchi bulgan data yozamiz.
                 {

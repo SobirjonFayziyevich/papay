@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router(); // expressni ichidan routerni olib chiqayopmiz.
-const memberController = require("./controllers/memberController"); // membercontrollerni chaqirib olayopmiz.
+const express=require("express");
+const router=express.Router(); // expressni ichidan routerni olib chiqayopmiz.
+const memberController=require("./controllers/memberController"); // membercontrollerni chaqirib olayopmiz.
 
 /*******************************************
-*           RECT  API (REACT UN)           *
-*********************************************/
+ *           RECT  API (REACT UN)           *
+ *********************************************/
 
 
 // memberga dahldor routerlar
@@ -23,4 +23,4 @@ router.get("/community", (req, res) => {
 });
 
 //bu faylni expoert qilamiz boshqa faylga.
-module.exports = router;
+module.exports=router;
