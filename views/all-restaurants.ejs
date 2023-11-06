@@ -1,74 +1,63 @@
-
-<!--<h1>Passed here</h1>-->
-
 <%- include('includes/header') %>
-
-<link rel="stylesheet" type="text/css" href="/css/menu.css">
-
+<link rel="stylesheet" type="text/css" href="/css/menu.css"/>
 <body>
+<div id="main_container">
 
-<div class="main_container resto">
     <div class="group_name">
         <ul class="nav justify-content-center">
-
             <li class="nav-item" style="cursor: pointer">
-                <a class="nav-link active " href="/resto">Home</a>
+                <a class="nav-link active" href="/resto">Home</a>        <!-- atributlar (GET) traditional get-->
             </li>
             <li class="nav-item" style="cursor: pointer">
-                <a class="nav-link  " href="/resto/all-restaurant">AllResto</a>
+                <a class="nav-link" href="/resto/all-restaurant">AllResto</a>
             </li>
-            <li class="nav-item" style="cursor: pointer ">
-                <a class="nav-link  " href="/resto/logout">Logout</a>
+            <li class="nav-item" style="cursor: pointer">
+                <a class="nav-link" href="/resto/logout">Logout</a>
             </li>
         </ul>
     </div>
 
     <div class="restaurant_menu_frame">
-        <div class="rastaurant_container">
+        <div class="restaurant_container">
             <div class="resto_table">
-                <span class="new_dish_txt"> Barcha Oshxonalar ro'yxati</span>
+                <span class="new_dish_txt">
+                    Barcha Oshxonalar Ro'yxati
+                </span>
 
-                <table class="table table-hover table-sm">
+                <table class="table table-hover">
                     <thead class="thead-light">
-
-                    <tr class="thead-light">
-                        <th scope="col">T/r</th>
-                        <th scope="col">Oshxona nomi</th>
-                        <th scope="col">Oshxona Telefon raqami</th>
-                        <th scope="col">Oshxona TOP</th>
-                        <th scope="col">Oshxona Holati</th>
+                    <tr class = "thead-light">
+                    <th scope="col">T/r</th>
+                    <th scope="col"> Oshxona Nomi </th>
+                    <th scope="col"> Oshxona  Telefon Nomeri </th>
+                    <th scope="col"> Oshxona TOP </th>
+                    <th scope="col"> Oshxona  Holati </th>
                     </tr>
-
                     </thead>
 
-                    <tbody style="background: #fff;">
-                    <td>1</td>
-                    <td>Uzbegim</td>
-                    <td>010234324333</td>
+                    <tbody style="background: white">
+                    <td>1</td>     <!-- qiymatni bittaga oshirib olamiz uzi 0 indexdan boshlanadi-->
+                    <td> Uzbegim </td>    <!-- value ni ichidan qiymatni olamiz -->
+                    <td>998933330333</td>
                     <td style="width: 13%;">
                         <label class="switch">
-                            <input class="input" type="checkbox" name="mb_top" >
-                            <span class="slider round"></span>
-                        </label></td>
-
+                            <input type="checkbox" class="mb_top">
+                            <span class="slider around"></span>
+                        </label>
+                    </td>
                     <td style="width: 13%;">
-                        <select class="spec_select mb_select ">
-                            <option value="ONPAUSE" > ONPAUSE</option>
-                            <option value="PROCESS"> PROCESS</option>
-                            <option value="DELETED" > DELETED</option>
+                        <select class="spec_select mb_status">       //mb_statusni keyinchalik Jqeuryda ishlatishimiz un yozib ketamiz.
+                                                                     //oshxona holatini uzgartira oladigan option lar
+                          <option value="ONPAUSE">ONPAUSE</option>
+                          <option value="ACTIVE">ACTIVE</option>
+                          <option value="DELETED">DELETED</option>
                         </select>
                     </td>
-
                     </tbody>
-
                 </table>
-
-
             </div>
         </div>
     </div>
-
 </div>
-
 </body>
 <%- include('includes/footer') %>
