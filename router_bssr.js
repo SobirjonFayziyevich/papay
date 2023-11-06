@@ -38,6 +38,10 @@ router_bssr.post("/products/edit/:id",
     restaurantController.validateAuthRestaurant,
     productController.updateChosenProduct);
 
+router_bssr.get("/all-restaurant",
+    restaurantController.validateAdmin,
+    restaurantController.getAllRestaurants);
+
 
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports=router_bssr;

@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8be8a66-7a2d-4a69-92f8-15238cdbd30b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/uploads.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/productController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/productController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/restaurantController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/restaurantController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/menu.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/menu.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/restaurant-menu.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/restaurant-menu.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/all-restaurants.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/all-restaurants.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/signup.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/signup.ejs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +164,8 @@
       <workItem from="1699059046084" duration="19717000" />
       <workItem from="1699090123980" duration="2916000" />
       <workItem from="1699095023218" duration="4056000" />
-      <workItem from="1699107385517" duration="3806000" />
+      <workItem from="1699107385517" duration="4943000" />
+      <workItem from="1699233981756" duration="3443000" />
     </task>
     <servers />
   </component>

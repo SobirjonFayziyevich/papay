@@ -137,3 +137,29 @@ restaurantController.checkSession=(req, res) => {
     }
 };
 
+restaurantController.validateAdmin = (req, res, next) => {
+    if (req.session?.member?.mb_type === "ADMIN") {
+        req.member = req.session.member;   // sessionni ichidagi member datesini requestni.member elementiga yuklab bersin.
+        next();                             //ADMIN user bulsa keyingi qatorga utkazsin.
+    } else {
+        const html =
+            `<script>         //html shaklida javob berayopmiz.
+              alert('Admin page: Permission denied!');
+              window.location.replace('/resto'); //locationni uzgartirsin va homepagega yuborsin
+              </script>`;
+        res.end(html);
+    }
+
+};
+
+restaurantController.getAllRestaurants = (req, res ) => {
+    try {
+        console.log("GET cont/getAllRestaurants");
+        // TODO: hamma restarantlarimizni choqiramiz.
+        res.render("all-restaurants")  //ejs ni render qilayopmiz.
+    } catch(err) {
+        console.log(`ERROR,cont/getAllRestaurants, ${err.message}`);
+        res.json({state: "fail", message: err.message});
+    }
+}
+
