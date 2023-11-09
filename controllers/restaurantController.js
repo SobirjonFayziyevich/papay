@@ -163,8 +163,6 @@ restaurantController.getAllRestaurants = async (req, res ) => {
         // restaurant objecti va  new Restaurant service module yordamida qurib olamiz.
         const restaurant= new Restaurant(),
             restaurants_data = await restaurant.getAllRestaurantsData(); // butun resta larni getAllRestaurantData methodi orqali chaqirib olamiz.
-        console.log("restaurants_data:",restaurants_data);
-
         res.render("all-restaurants", { restaurants_data: restaurants_data });  // qabul qilnayotgan datalarni restaurantData nomi bn yuboramiz.
 
     } catch(err) {

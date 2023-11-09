@@ -51,7 +51,7 @@
                         </label>
                     </td>
                     <td style="width: 13%;">
-                        <select class="spec_select mb_status">       //mb_statusni keyinchalik Jqeuryda ishlatishimiz un yozib ketamiz.
+                        <select class="spec_select mb_status" id="<%= value._id %>">       //mb_statusni keyinchalik Jqeuryda ishlatishimiz un yozib ketamiz.
                                                                      //oshxona holatini uzgartira oladigan option lar
                             <option value="ONPAUSE" <%= value.mb_status === 'ONPAUSE' ? 'selected' : '' %> >ONPAUSE</option>
                             <option value="ACTIVE" <%= value.mb_status === 'ACTIVE' ? 'selected' : '' %> >ACTIVE</option>
@@ -70,7 +70,8 @@
 <script>
 
     $(function () {
-        // manipulate restaurants top features top restaurantlar ruyxatidan olib chiqish mantiqi.
+        // manipulate restaurants top features.
+
         $(".mb_top").on("change", function (e) {  // (E) bu event .
             // alert('amalga oshirdim');
             const id = e.target.id;   //event bydefault kirib keladi va kerak bulgan resta (id) beradi.
@@ -83,9 +84,26 @@
                     else alert(result.message);            //agar fail bul, result ichida messageni kursatsin.
                 })
                 .catch(err => console.log(err));
-
-            // console.log(`${id} va ${mb_top}`);
         });
+
+        // manipulate restaurants status features.
+
+        $(".mb_status").on("change", function (e) {  // (E) bu event .
+            // alert('amalga oshirdim');
+            const id = e.target.id;   //event bydefault kirib keladi va kerak bulgan resta (id) beradi.
+            const mb_status = $(`#${id}.mb_status`).val();  //mb_top_status checked bul,yes bulmasa No kurinishida bul.
+
+            console.log("mb_status:", mb_status);
+
+            axios.post('/resto/all-restaurant/edit',{id: id, mb_status: mb_status})
+                .then(response => {
+                    const result = response.data;               // buni ichiga state: "success", data: result qiymati beriladi.
+                    if(result.state === 'success') alert('successfully update');
+                    else alert(result.message);            //agar fail bul, result ichida messageni kursatsin.
+                })
+                .catch(err => console.log(err));
+        });
+
 
     });
 
