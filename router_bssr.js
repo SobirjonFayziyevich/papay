@@ -42,6 +42,9 @@ router_bssr.get("/all-restaurant",
     restaurantController.validateAdmin,
     restaurantController.getAllRestaurants);
 
+router_bssr.post("/all-restaurant/edit",
+    restaurantController.validateAdmin,
+    restaurantController.updateRestaurantByAdmin);
 
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports=router_bssr;

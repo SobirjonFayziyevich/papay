@@ -9,6 +9,7 @@ const assert=require("assert");
 const Restaurant = require("../models/Restaurant");
 
 
+
 let restaurantController=module.exports;
 
 restaurantController.home=(req, res) => {
@@ -168,6 +169,22 @@ restaurantController.getAllRestaurants = async (req, res ) => {
 
     } catch(err) {
         console.log(`ERROR,cont/getAllRestaurants, ${err.message}`);
+        res.json({state: "fail", message: err.message});
+    }
+};
+
+restaurantController.updateRestaurantByAdmin = async (req, res) => {
+    try {
+        console.log("GET cont/updateRestaurantByAdmin");
+        // res.render("all-restaurants");
+        // getAllRestaurants methodi un bir methodni hosil qilib olsak.
+        // restaurant objecti va  new Restaurant service module yordamida qurib olamiz.
+        const restaurant= new Restaurant();
+        const result = await restaurant.updateRestaurantByAdminData(req.body); // butun resta larni updateRestaurantByAdminData methodi orqali chaqirib olamiz.
+        await res.json({ state: "success", data: result });
+
+    } catch(err) {
+        console.log(`ERROR,cont/updateRestaurantByAdmin, ${err.message}`);
         res.json({state: "fail", message: err.message});
     }
 }

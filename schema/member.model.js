@@ -3,10 +3,10 @@ const {
     member_type_enums,
     member_status_enums,
     ordinary_enums,
-}=require("../lib/config");
+} = require("../lib/config");
 
 
-const memberSchema=new mongoose.Schema({ // (class deb nomladik) Schema yaratib olayopmiz.
+const memberSchema= new mongoose.Schema({ // (class deb nomladik) Schema yaratib olayopmiz.
         // (EAR modulingdagi)  member buyich malumotlarni joylashtirib chiqamiz.
         mb_nick: {
             type: String,
@@ -20,13 +20,13 @@ const memberSchema=new mongoose.Schema({ // (class deb nomladik) Schema yaratib 
         },
         mb_password: {
             type: String,
-            required: false,
-            select: false, // keyinchalik bydefault qilib qaytarmasligi un .
+            required: true,
+            select: true, // keyinchalik bydefault qilib qaytarmasligi un .
         },
         mb_type: {
             type: String,
-            required: "RESTAURANT",
-            default: "RESTAURANT",
+            required: "false",
+            default: "USER",
             enum: {
                 values: member_type_enums,
                 message: "{VALUE} is not among permitted values" // valueni ichida bulmagan tashqaridan malumot kelsa xatolik bulsin.
@@ -63,7 +63,7 @@ const memberSchema=new mongoose.Schema({ // (class deb nomladik) Schema yaratib 
             required: false,
             default: "N",
             enum: {
-                values: "N",   //enum bu oldindan belgilab olingan qiymat.
+                values: ordinary_enums,   //enum bu oldindan belgilab olingan qiymat.
                 message: "{VALUE} is not among permitted values"
             }
         },
