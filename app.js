@@ -23,11 +23,11 @@ app.use(express.urlencoded({extended: true}));
 // 2: Session code
 app.use(
     session({
-        secret: process.env.SESSION_SECRET,               // secret kodimizni joyladik.
+        secret: process.env.SESSION_SECRET,  // secret kodimizni joyladik.
         cookie: {
-            maxAge: 1000 * 60 * 30,                        // malumt 30 minutgacha cookieda aqlanib turadi.
+            maxAge: 1000 * 60 * 30,           // malumt 30 minutgacha cookieda aqlanib turadi.
         },
-        store: store,                                   // store storeda saqlansin
+        store: store,                         // store storeda saqlansin
         resave: true,
         saveUninitialized: true,
     })
@@ -35,7 +35,7 @@ app.use(
 
 // har bir kelayotgan req un mantiq yozsak.
 app.use(function (req, res, next) {
-    res.locals.member=req.session.member;
+    res.locals.member = req.session.member;
     next();
 })
 

@@ -35,25 +35,32 @@
                     </tr>
                     </thead>
 
+                    <% restaurants_data.map(function(value, key) { %>  // array bulgani un map qilayopmiz
                     <tbody style="background: white">
-                    <td>1</td>     <!-- qiymatni bittaga oshirib olamiz uzi 0 indexdan boshlanadi-->
-                    <td> Uzbegim </td>    <!-- value ni ichidan qiymatni olamiz -->
-                    <td>998933330333</td>
+                    a<td><%= key + 1 %></td>                           // indexni 1 dan boshlansin.
+               <td> <%= value.mb_nick %> </td>        <!--  restarantni nomi valueni ichida mb_nick buladi. -->
+                    <td><%= value.mb_phone %> </td>
                     <td style="width: 13%;">
                         <label class="switch">
-                            <input type="checkbox" class="mb_top">
-                            <span class="slider around"></span>
+<!--                             mongodb hosil qilib bergan (id)dan foydalandik. //top rest bulsa,check holatda bulishi kerak, top rest ruyxatida bulmasa, check holarda bulmasin.-->
+<!--                             (id)ni keyinchalik JQUARYDA olishga tugri keladi shuni un (id) beramiz.-->
+                            <input type="checkbox" class="mb_top" id="<%= value._id %>"
+                                 <%= value.mb_top === 'Y' ? 'checked' : '' %> />     <!--agar (value) (mb_top)ning qiymati (YES)bulganda CHECK bulsin,-->
+                                                                                       <!--YES bulmasa hech qanday qiymat olmasin-->
+                            <span class="slider round"></span>
                         </label>
                     </td>
                     <td style="width: 13%;">
                         <select class="spec_select mb_status">       //mb_statusni keyinchalik Jqeuryda ishlatishimiz un yozib ketamiz.
                                                                      //oshxona holatini uzgartira oladigan option lar
-                          <option value="ONPAUSE">ONPAUSE</option>
-                          <option value="ACTIVE">ACTIVE</option>
-                          <option value="DELETED">DELETED</option>
+                            <option value="ONPAUSE" <%= value.mb_status === 'ONPAUSE' ? 'selected' : '' %> >ONPAUSE</option>
+                            <option value="ACTIVE" <%= value.mb_status === 'ACTIVE' ? 'selected' : '' %> >ACTIVE</option>
+                            <option value="DELETED" <%= value.mb_status === 'DELETED' ? 'selected' : '' %>>DELETED</option>
                         </select>
                     </td>
                     </tbody>
+                    <% }); %>
+
                 </table>
             </div>
         </div>

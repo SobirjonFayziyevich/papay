@@ -6,6 +6,8 @@ const Member=require("../models/Member");
 const Product=require("../models/Product");  // Product mantiqini yozib oldik.
 const Definer=require("../lib/mistake");
 const assert=require("assert");
+const Restaurant = require("../models/Restaurant");
+
 
 let restaurantController=module.exports;
 
@@ -152,11 +154,18 @@ restaurantController.validateAdmin = (req, res, next) => {
 
 };
 
-restaurantController.getAllRestaurants = (req, res ) => {
+restaurantController.getAllRestaurants = async (req, res ) => {
     try {
         console.log("GET cont/getAllRestaurants");
-        // TODO: hamma restarantlarimizni choqiramiz.
-        res.render("all-restaurants")  //ejs ni render qilayopmiz.
+        // res.render("all-restaurants");
+        // getAllRestaurants methodi un bir methodni hosil qilib olsak.
+        // restaurant objecti va  new Restaurant service module yordamida qurib olamiz.
+        const restaurant= new Restaurant(),
+            restaurants_data = await restaurant.getAllRestaurantsData(); // butun resta larni getAllRestaurantData methodi orqali chaqirib olamiz.
+        console.log("restaurants_data:",restaurants_data);
+
+        res.render("all-restaurants", { restaurants_data: restaurants_data });  // qabul qilnayotgan datalarni restaurantData nomi bn yuboramiz.
+
     } catch(err) {
         console.log(`ERROR,cont/getAllRestaurants, ${err.message}`);
         res.json({state: "fail", message: err.message});
