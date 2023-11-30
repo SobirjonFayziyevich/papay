@@ -1,7 +1,7 @@
 console.log("web serverni boshladik");
 const express=require("express");
 const app=express();
-const router=require("./router");       //router.jsni chaqirib olayopmz.
+const router = require("./router");       //router.jsni chaqirib olayopmz.
 const router_bssr=require("./router_bssr.js");
 const cookieParser = require("cookie-parser");
 

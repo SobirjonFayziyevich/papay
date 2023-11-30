@@ -12,8 +12,14 @@ memberController.signup=async (req, res) => {
         const data=req.body,               //req body qismidan malumot olamiz.
             member=new Member(),
             new_member=await member.signupData(data);   //ichida request body yuborilyabdi
-
-        // TODO: AUTHENTICATE BASED ON JWT
+         
+            
+            console.log("result:::", new_member);
+            const token = memberController.createToken(new_member);  //return bulgan valueni tookenga tenglashtiirb olayopmiz.
+            res.cookie('access_token', token, {  //cookiesga => acsestokenni va undan hosil bulgan tokenni va
+                maxAge: 6 * 3600 * 1000,         // token bn teng bulgan vaqtni olayopman.
+                httpOnly: true,   // hardoim true bulishi lozim
+            });
 
         res.json({state: 'succeed', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
     } catch (err) {
@@ -29,11 +35,8 @@ memberController.login=async (req, res) => {
             member=new Member(),
             result=await member.loginData(data);   //ichida request body yuborilyabdi
 
-            console.log("result:::", result);
-
             const token = memberController.createToken(result);  //return bulgan valueni tookenga tenglashtiirb olayopmiz.
             console.log("token:::", token);
-
             res.cookie('access_token', token, {  //cookiesga => acsestokenni va undan hosil bulgan tokenni va
                 maxAge: 6 * 3600 * 1000,         // token bn teng bulgan vaqtni olayopman.
                 httpOnly: true,   // hardoim true bulishi lozim
@@ -69,4 +72,20 @@ memberController.createToken = (result) => {
     } catch(err) {
       throw err;
     }
-}
+};
+
+memberController.checkMyAuthentication = (req, res) => {
+    try {
+        console.log('GET cont/checkMyAuthentication');
+        const token = req.cookies['access_token'];
+        console.log("token:::", token);
+
+        const member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
+        assert.ok(member, Definer.auth_err2);
+
+        res.json({ state: 'succeed', data: member }); 
+    } catch(err) {
+        throw err;
+    }
+};
+
