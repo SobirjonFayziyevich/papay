@@ -11,6 +11,7 @@ const memberController=require("./controllers/memberController"); // membercontr
 router.post("/signup", memberController.signup); // membercontrollerni ichidagi signupga borayopti.
 router.post("/login", memberController.login); // membercontrollerni ichidagi loginga borayopti.
 router.get("/logout", memberController.logout); // membercontrollerni ichidagi logoutga borayopti.
+router.get ("/check-me", memberController.checkMyAuthentication);
 
 
 // section routerlar
