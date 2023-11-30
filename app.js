@@ -3,6 +3,7 @@ const express=require("express");
 const app=express();
 const router=require("./router");       //router.jsni chaqirib olayopmz.
 const router_bssr=require("./router_bssr.js");
+const cookieParser = require("cookie-parser");
 
 
 let session=require("express-session");  // express sessionni chaqirib oldik.
@@ -19,6 +20,7 @@ app.use(express.static("public"));
 app.use(express.json());
 //html formatdan qabul qilinadigan datalarni serverga kiritish
 app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 
 // 2: Session code
 app.use(
