@@ -115,4 +115,4 @@ memberController.retrieveAuthMember = (req, res, next) => {
         console.log(`ERROR, cont/retrieveAuthMember, ${err.message}`);
         next();
     }
-}
+};

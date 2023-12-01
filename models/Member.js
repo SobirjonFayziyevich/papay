@@ -7,6 +7,7 @@ const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcrypt");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
+const View = require("./View");
 
 
 class Member{
@@ -68,6 +69,7 @@ class Member{
 
              if(member) {
                  // condition not seen before.
+              await this.viewChosenItemByMember(member, id, "member");
              }
 
             const result = await this.memberModel
@@ -83,5 +85,29 @@ class Member{
           throw err;
         }
     }
+
+    async viewChosenItemByMember (member, view_ref_id, group_type) {
+        try {
+            view_ref_id = shapeIntoMongooseObjectId(view_ref_id); //view_ref_idni mongooDB ID ga aylantirayopmiz.
+            const mb_id = shapeIntoMongooseObjectId(member._id);
+          
+            const view = new View(mb_id);
+             const isValid = await view.validateChosenTarget(view_ref_id, group_type);
+            assert.ok(isValid, Definer.general_err2 );
+
+            //loged user has seen target
+            const doesExist = await view.checkViewExistance(view_ref_id);
+            console.log("doesExist:", doesExist);
+            if(!doesExist) { //mavjud bulmagan vaqtda 
+            const result = await view.insertMemberView(view_ref_id, group_type);
+            assert.ok(result, Definer.general_err1);
+            } 
+           return true;
+           
+        } catch (err) {
+          throw err;
+        }
+    }
 }
+
 module.exports = Member;
