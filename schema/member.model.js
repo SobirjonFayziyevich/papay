@@ -21,7 +21,7 @@ const memberSchema= new mongoose.Schema({ // (class deb nomladik) Schema yaratib
         mb_password: {
             type: String,
             required: true,
-            select: true, // keyinchalik bydefault qilib qaytarmasligi un .
+            select: false, // keyinchalik bydefault qilib qaytarmasligi un .
         },
         mb_type: {
             type: String,

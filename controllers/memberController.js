@@ -31,12 +31,12 @@ memberController.signup=async (req, res) => {
 memberController.login=async (req, res) => {
     try {                                        // satandartlarni qurish:
         console.log("POST: cont/login");        //routerdan kirib kelgan req turi.
-        const data=req.body,                  //req body qismidan malumot olamiz.
-            member=new Member(),
-            result=await member.loginData(data);   //ichida request body yuborilyabdi
+        const data = req.body,                  //req body qismidan malumot olamiz.
+            member = new Member(),
+            result = await member.loginData(data);   //ichida request body yuborilyabdi
 
             const token = memberController.createToken(result);  //return bulgan valueni tookenga tenglashtiirb olayopmiz.
-            console.log("token:::", token);
+            // console.log("token:::", token);
             res.cookie('access_token', token, {  //cookiesga => acsestokenni va undan hosil bulgan tokenni va
                 maxAge: 6 * 3600 * 1000,         // token bn teng bulgan vaqtni olayopman.
                 httpOnly: true,   // hardoim true bulishi lozim
@@ -50,9 +50,10 @@ memberController.login=async (req, res) => {
     }
 };
 
-memberController.logout=(req, res) => {
+memberController.logout=(_req, res) => {
     console.log("GET cont/logout");
-    res.send("logout page");
+    res.cookie("access_token", null, {maxAge: 0, httpOnly: true});
+    res.json({ state: "succeed", data: 'logout successfully!' });   
 };
 
 memberController.createToken = (result) => {
@@ -63,12 +64,12 @@ memberController.createToken = (result) => {
             my_type: result.mb_type
         };
 
-        const token = jwt.sign(upload_data,process.env.SECRET_TOKEN,{
+        const token = jwt.sign(upload_data, process.env.SECRET_TOKEN, {
              expiresIn: '6h',
         });
 
-         assert.ok(token, Definer.auth_err2);  // tokenda xatolik bulsa kursatsin
-        return token;                          //xatolik bulmasa tokenni olsin.
+     assert.ok(token, Definer.auth_err2);  // tokenda xatolik bulsa kursatsin
+    return token;                          //xatolik bulmasa tokenni olsin.
     } catch(err) {
       throw err;
     }
@@ -77,15 +78,41 @@ memberController.createToken = (result) => {
 memberController.checkMyAuthentication = (req, res) => {
     try {
         console.log('GET cont/checkMyAuthentication');
-        const token = req.cookies['access_token'];
-        console.log("token:::", token);
+        let token = req.cookies["access_token"];
+        // console.log("token:::", token);
 
         const member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
         assert.ok(member, Definer.auth_err2);
 
-        res.json({ state: 'succeed', data: member }); 
+        res.json({ state: "succeed", data: member }); 
     } catch(err) {
-        throw err;
+      throw err;
     }
 };
 
+memberController.getChosenMember = async (req, res) => {
+   try {
+    console.log("GET cont/getChosenMember");
+    const id = req.params.id;
+
+    const member = new Member();
+    const result = await member.getChosenMemberData(req.member, id); //1chi argument(req.member) kimbu req 1chi amalga oshirayopti, 
+                                                                     // 2chi argument (id) bu kimni datasini kurmoqchimiz. 
+
+    res.json({ state: "succeed", data: result }); 
+  } catch (err) {
+    console.log(`ERROR, cont/getChosenMember, ${err.message}`);
+    res.json({ state: "fail", message: err.message }); 
+   }
+};
+
+memberController.retrieveAuthMember = (req, res, next) => {
+    try {
+        const token = req.cookies["access_token"];
+        req.member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
+        next();
+    } catch (err) {
+        console.log(`ERROR, cont/retrieveAuthMember, ${err.message}`);
+        next();
+    }
+}

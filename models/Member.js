@@ -6,6 +6,7 @@ const MemberModel = require("../schema/member.model");       // Schema modelni c
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcrypt");
+const { shapeIntoMongooseObjectId } = require("../lib/config");
 
 
 class Member{
@@ -56,6 +57,30 @@ class Member{
                      .exec();
         } catch (err) {
             throw err;
+        }
+    }
+
+    async getChosenMemberData(member, id) {
+        try {
+            id = shapeIntoMongooseObjectId(id);
+            
+             console.log("member:::", member);
+
+             if(member) {
+                 // condition not seen before.
+             }
+
+            const result = await this.memberModel
+            .aggregate([
+                { $match: { _id: id, mb_status: "ACTIVE" } },
+               { $unset: "mb_password"},        // mb_passwordni olib bermaydi
+        ])
+         .exec();
+
+         assert.ok(result, Definer.general_err2);
+        return result[0];
+        } catch (err) {
+          throw err;
         }
     }
 }
