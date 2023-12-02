@@ -13,7 +13,86 @@ const ProductModel = require("../schema/product.model");
 class Product {
     constructor() {
         this.productModel = ProductModel;  // ProductModel classni hosil qilib (ProductModel)ga tenglashtirayopti.
+
     }
+
+
+    async getAllProductsData(member, data) {
+        try {
+            const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
+
+            let match = {product_status: "PROCESS"};
+            if (data.restaurant_mb_id) {
+                match["restaurant_mb_id"] = shapeIntoMongooseObjectId(
+                    data.restaurant_mb_id
+                );
+                match["product_collection"] = data.product_collection;
+            }
+
+            const sort =
+                data.order === "product_price"
+                    ? {[data.order]: 1}
+                    : {[data.order]: -1};
+
+            const result = await this.productModel
+                .aggregate([
+                    {$match: match},
+                    {$sort: sort},
+                    // {$skip: (data.page * 1 - 1) * data.limit},
+                    // {$limit: data.limit * 1},
+                ])
+                .exec();
+            // todo check auth member product click like
+
+            console.log(result);
+
+            assert.ok(result, Definer.general_err1);
+            return result;
+        } catch (err) {
+            throw err;
+        }
+    };
+    
+//     async getAllProductsData(member, data) {
+//         try{
+//           const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
+
+//           // product statuslar:
+//           let match = { product_status: "PROCESS" };
+//           if(data.restaurant_mb_id) {  //faqat bir restaurantga tegishli Id chaqirilayotgan bulsa.
+//             match["restaurant_mb_id"] = shapeIntoMongooseObjectId(
+//                 data.restaurant_mb_id);
+
+//             match['product_collection'] = data.product_collection;
+//           }
+
+//           const sort = data.order === "product_price" 
+//           ? { [data.order]: 1 } 
+//           : { [data.order]: -1 };   // yuqori qiymatdan pastga qarab siljish
+
+//           // {product_price: 1} productni price bulgan holatda.
+
+//           const result = await this.productModel
+//           .aggregate([ //productSchema modelimiz aggretage bulayopti.
+//             { $match: match},
+//             { $sort: sort},
+//             { $skip: (data.page  * 1 - 1) * data.limit }, //data ichidan nechinchi pageligi suralmoqda.
+//             { $limit: data.limit  * 1 },
+//             //todo: check auth user auth product likes
+//           ])
+//           .exec();
+
+//           console.log(result);
+
+//          assert.ok(result, Definer.general_err1);
+//           return result;
+
+//        }catch (err) {
+//          throw err;  
+//        }
+// }
+
+
     //restaurantControllerdan kelayotgan malumotni shuyerga kiritayopmiz.
     async getAllProductsDataResto(member) {
         try {

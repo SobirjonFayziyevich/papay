@@ -2,17 +2,24 @@ const Product = require("../models/Product");
 const assert = require("assert");  //ma'lum bir shartni tekshirish va dasturni to'xtatish un ishlatiladigan method.
 const Definer = require("../lib/mistake");  //Definer odatda obyekt yaratish va unga qiymatlar qo'shishda yoki obyektdan qiymatlarni o'chirishda ishlatiladi
 
-let productController = module.exports;        // controllerlar OBJECT orqali yasaldi.
+const productController = module.exports;
 
 productController.getAllProducts = async (req, res) => {       // hamma productlarni oladigam method.
     try {
-        console.log("GET: cont/getAllProducts");
-    } catch(err) {
-        res.json({ state: "failed", message: err.message });
+        console.log("POST: cont/getAllProducts");
+        const product = new Product();
+        const results = await product.getAllProductsData(req.member, req.body);
+        res.json({ state: "succeed", data: results});
+    } catch (err) {
         console.log(`ERROR: cont/getAllProducts, ${err.message}`);
-
+        res.json({state: "fail", message: err.message});
     }
 };
+
+
+/** *************************************************
+ *              BSSR RELATED METHODS                *
+ ****************************************************/
 
 productController.addNewProduct = async (req, res) => {       // hamma productlarni oladigam method.
     try {
@@ -61,3 +68,12 @@ productController.updateChosenProduct = async (req, res) => {  // hamma productl
     }
 };
 
+productController.getAllProducts = async (req, res) => {
+    try {
+        console.log("POST: cont/getAllProducts");
+    } catch (err) {
+        console.log(`ERROR: cont/getAllProducts, ${err.message}`);
+        res.json({ state: "failed", message: err.message });
+    }
+    
+};
