@@ -73,7 +73,7 @@ class Member{
              }
 
             const result = await this.memberModel
-            .aggregate([
+            .aggregate([   //
                 { $match: { _id: id, mb_status: "ACTIVE" } },
                { $unset: "mb_password"},        // mb_passwordni olib bermaydi
         ])

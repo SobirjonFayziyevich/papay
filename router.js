@@ -1,7 +1,10 @@
 const express=require("express");
 const router=express.Router(); // expressni ichidan routerni olib chiqayopmiz.
 const memberController=require("./controllers/memberController"); // membercontrollerni chaqirib olayopmiz.
-const productController=require("./controllers/productController"); 
+const productController=require("./controllers/productController");
+const {getChosenMember} = require("./controllers/memberController");
+const {getAllProducts} = require("./controllers/productController");
+
 
 /*******************************************
  *           RECT  API (REACT UN)           *
@@ -17,10 +20,14 @@ router.get ("/member/:id", memberController.retrieveAuthMember,
  memberController.getChosenMember);
 
 
-// Product related roters
-router.post("/products", memberController.retrieveAuthMember, // bizni kimligimizni aniqlaydi.
-productController.getAllProducts ); //barcha restar mahsulotlarini bitta qilib qyozish.
+// // Product related roters
+ router.post("/products", memberController.retrieveAuthMember, // bizni kimligimizni aniqlaydi. va likelarni kim bosganini ham bildiradi.
+ productController.getAllProducts ); //barcha restar mahsulotlarini bitta qilib qyozish.
 
+ router.post(
+    "/products",
+    memberController.retrieveAuthMember,
+    productController.getAllProducts);
 
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports = router;

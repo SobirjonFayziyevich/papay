@@ -95,7 +95,7 @@ memberController.getChosenMember = async (req, res) => {
     console.log("GET cont/getChosenMember");
     const id = req.params.id;
 
-    const member = new Member();
+    const member = new Member();   //Service modeldan object olayopmiz.
     const result = await member.getChosenMemberData(req.member, id); //1chi argument(req.member) kimbu req 1chi amalga oshirayopti, 
                                                                      // 2chi argument (id) bu kimni datasini kurmoqchimiz. 
 
@@ -113,6 +113,6 @@ memberController.retrieveAuthMember = (req, res, next) => {
         next();
     } catch (err) {
         console.log(`ERROR, cont/retrieveAuthMember, ${err.message}`);
-        next();
+        next(); // login bulgan va bulmaganlar kirb foydalanishi uchun.
     }
 };
