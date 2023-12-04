@@ -1,10 +1,12 @@
 const ViewModel = require("../schema/view.model");
-const memberModel = require("../schema/member.model");
+const MemberModel = require("../schema/member.model");
+const ProductModel = require("../schema/product.model");
 
 class View {
   constructor(mb_id) {
     this.viewModel = ViewModel;
-    this.memberModel = memberModel;
+    this.productModel = ProductModel;
+    this.memberModel = MemberModel;
     this.mb_id = mb_id;
   }
 
@@ -20,6 +22,15 @@ class View {
             })
             .exec();
           break;     //result mavjud yoki  yuqligini qaytarishi kerak.
+
+          case "product":  // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
+          result = await this.productModel  //memberSchema modelni chaqirayopmiz.
+            .findById({  //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+              _id: view_ref_id,
+              mb_status: "PROCESS",
+            })
+            .exec();
+          break;
       }
 
       return !!result; // true va falesni qiymatini qaytaradigan syntax, resultni qiymatini tekshiradi.
@@ -49,16 +60,27 @@ class View {
   async modifyItemViewCounts(view_ref_id, group_type) {
     try {
       switch (group_type) {
-        case "member":
+        case "member":   //memberni sonini oshirish un tekshiradi
           await this.memberModel
             .findByIdAndUpdate(
               {
                 _id: view_ref_id,
               },
-              { $inc: { mb_views: 1 } }
+              { $inc: { mb_views: 1 } }  // member viewni qiymatini oshirish kerak.
             )
             .exec();
           break;
+
+          case "product":     //productni sonini oshirish un tekshiradi
+            await this.productModel
+              .findByIdAndUpdate(
+                {
+                  _id: view_ref_id,
+                },
+                { $inc: { product_views: 1 } }   // product viewni qiymatini oshirish kerak.
+              )
+              .exec();
+            break;
       }
       return true;
     } catch (err) {

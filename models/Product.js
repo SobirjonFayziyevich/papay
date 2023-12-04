@@ -3,6 +3,7 @@ const assert = require("assert");
 const {shapeIntoMongooseObjectId} = require("../lib/config");   // Product Schemani export qilib oldik.
 const Definer = require("../lib/mistake");
 const ProductModel = require("../schema/product.model");
+const Member = require("./Member");
 
 
             // MANTIQ:
@@ -41,18 +42,40 @@ class Product {
                     // { $limit: data.limit * 1 },
                 ])
                 .exec();
-
-            // todo check auth member product click like
-
-            console.log(result);
-
-            assert.ok(result, Definer.general_err1);
-            return result;
+                   // todo check auth member product click like
+                   
+         assert.ok(result, Definer.general_err1);
+          return result;
         } catch (err) {
             throw err;
         }
     };
-  
+
+    async getChosenProductData(member, id) {
+        try {
+           const auth_mb_id = shapeIntoMongooseObjectId(member?._id); //memberni ichidan id ni topolamiz. 
+           id = shapeIntoMongooseObjectId(id);
+
+           if(member) {   //agar loged bulmagan user bulmasa bu qatnashmaydi.
+               const member_obj = new Member();   //Product Service modelni ichida Member Service modelni ishkatayopmizz.
+               member_obj.viewChosenItemByMember(member, id, "product");  //member => kim, id => nima, product => type bulayopti.
+
+           }
+
+           const result = await this.productModel
+           .aggregate([
+               { $match: { _id: id, product_status: 'PROCESS'} },
+               //TODO: check auth member product likes
+           ])
+           .exec();
+
+           assert.ok(result, Definer.general_err1);    //kelayotgan datani mavjudligini yekshirib olamiz.
+           return result;  // qiymati mavjud bulsa return qilsin.
+        } catch(err) {
+          throw err;
+        }
+    };
+   
 
 
     //restaurantControllerdan kelayotgan malumotni shuyerga kiritayopmiz.
@@ -81,7 +104,7 @@ class Product {
            data.restaurant_mb_id = shapeIntoMongooseObjectId(member._id); // memberIDni  MONGODB ObjectID aylantirilmoqda member._id ichidan.
 
 
-            const new_product = new this.productModel(data);  // bu schema model instins olayopmiz
+            const new_product = new this.productModel(data);  // bu schema modeldan instins olayopmiz
             const result = await new_product.save();       //
 
             assert.ok(result, Definer.product_err1);

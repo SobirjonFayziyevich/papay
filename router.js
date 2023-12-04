@@ -29,5 +29,8 @@ router.get ("/member/:id", memberController.retrieveAuthMember,
     memberController.retrieveAuthMember,
     productController.getAllProducts);
 
+router.get("/products/:id", memberController.retrieveAuthMember,
+productController.getChosenProduct);
+
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports = router;
