@@ -58,7 +58,7 @@ class Product {
 
            if(member) {   //agar loged bulmagan user bulmasa bu qatnashmaydi.
                const member_obj = new Member();   //Product Service modelni ichida Member Service modelni ishkatayopmizz.
-               member_obj.viewChosenItemByMember(member, id, "product");  //member => kim, id => nima, product => type bulayopti.
+               await member_obj.viewChosenItemByMember(member, id, "product");  //member => kim, id => nima, product => type bulayopti.
 
            }
 

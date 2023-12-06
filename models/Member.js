@@ -96,7 +96,7 @@ class Member{
             const mb_id = shapeIntoMongooseObjectId(member._id);
           
             const view = new View(mb_id);
-             const isValid = await view.validateChosenTarget(view_ref_id, group_type);  //1chi 
+             const isValid = await view.validateChosenTarget(view_ref_id, group_type);  //biz kurayotgan memberimiz mavjudmi. 
              //2chi memberlar haqiqiymi, 3- view logini hosil qildik 4- modifay qildik 
             // assert.ok(isValid, Definer.general_err2 );
 

@@ -11,7 +11,7 @@ const Restaurant = require("../models/Restaurant");
 let restaurantController=module.exports;
 
 restaurantController.getRestaurants = async (req, res) => { // async method
-    try{
+    try {
         console.log("GET: cont/getRestaurants");
         const data = req.query; //reqnin query qism malumotlarni olamz
         // console.log("query data:::", data);
@@ -20,11 +20,30 @@ restaurantController.getRestaurants = async (req, res) => { // async method
         const result = await restaurant.getRestaurantsData(req.member, data); //restaurant ichida getRestaurantsData methodini hosil qilib olayopman.
         // va getRestaurantsDataga req.member va datani argumentlarini pass qilayopman.
         res.json({state: "success", data: result });// response qabul qilib olayopmiz.
-    }catch(err) {
+    } catch(err) {
         console.log(`ERROR: cont/getRestaurants, ${err.message}`);  //error bulsa qaytar degan qism.
         res.json({state: "fail", message: err.message});
     }
-}
+};
+
+restaurantController.getChosenRestaurant = async(req, res) => {
+    try {
+        console.log("GET: cont/getChosenRestaurant");
+        const id = req.params.id;
+        // console.log("id:::", id);
+        const restaurant = new Restaurant(); //restaurant Service modeldan restaurant objectini hosil qilib oldim.
+        const result = await restaurant.getChosenRestaurantData(req.member, id); // restaurant objectimni ichidan getChosenRestaurantData methodini hosil qilib oladim 
+
+
+        res.json({state: "success", data: result });// response qabul qilib olayopmiz.
+
+    } catch (err) {
+        console.log(`ERROR: cont/getChosenRestaurant, ${err.message}`);  //error bulsa qaytar degan qism.
+        res.json({state: "fail", message: err.message});
+
+
+    }
+};
 
 
 /**********************************
