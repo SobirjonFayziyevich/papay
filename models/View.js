@@ -43,7 +43,7 @@ class View {
     try {
       const new_view = new this.viewModel({
         mb_id: this.mb_id,
-        view_ref_id: view_ref_id,
+        view_ref_id: view_ref_id, 
         view_group: group_type,
       });
       const result = await new_view.save();

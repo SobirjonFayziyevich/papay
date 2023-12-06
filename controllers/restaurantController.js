@@ -8,9 +8,28 @@ const Definer=require("../lib/mistake");
 const assert=require("assert");
 const Restaurant = require("../models/Restaurant");
 
-
-
 let restaurantController=module.exports;
+
+restaurantController.getRestaurants = async (req, res) => { // async method
+    try{
+        console.log("GET: cont/getRestaurants");
+        const data = req.query; //reqnin query qism malumotlarni olamz
+        // console.log("query data:::", data);
+        // res.send('DONE!');
+        const restaurant = new Restaurant();  //restaurant objectini hosil qilib olayopmiz
+        const result = await restaurant.getRestaurantsData(req.member, data); //restaurant ichida getRestaurantsData methodini hosil qilib olayopman.
+        // va getRestaurantsDataga req.member va datani argumentlarini pass qilayopman.
+        res.json({state: "success", data: result });// response qabul qilib olayopmiz.
+    }catch(err) {
+        console.log(`ERROR: cont/getRestaurants, ${err.message}`);  //error bulsa qaytar degan qism.
+        res.json({state: "fail", message: err.message});
+    }
+}
+
+
+/**********************************
+ *         BSSR RELATED ROUTER      *
+ **********************************/
 
 restaurantController.home=(req, res) => {
     try {
@@ -134,7 +153,7 @@ restaurantController.validateAuthRestaurant=(req, res, next) => {
 
 restaurantController.checkSession=(req, res) => {
     if (req.session?.member) {
-        res.json({state: 'succeed', data: req.session.member});
+        res.json({state: 'success', data: req.session.member});
     } else {
         res.json({state: "fail", message: "You aren't authenticated"});
     }

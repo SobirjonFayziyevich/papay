@@ -76,7 +76,10 @@ class Member{
             .aggregate([   //
                 { $match: { _id: id, mb_status: "ACTIVE" } },
                { $unset: "mb_password"},        // mb_passwordni olib bermaydi
+
+              
                //TODO: check auth member  likes the chosen member.
+
         ])
          .exec();
 
@@ -93,12 +96,13 @@ class Member{
             const mb_id = shapeIntoMongooseObjectId(member._id);
           
             const view = new View(mb_id);
-             const isValid = await view.validateChosenTarget(view_ref_id, group_type);
+             const isValid = await view.validateChosenTarget(view_ref_id, group_type);  //1chi 
+             //2chi memberlar haqiqiymi, 3- view logini hosil qildik 4- modifay qildik 
             // assert.ok(isValid, Definer.general_err2 );
 
             //loged user has seen target
             const doesExist = await view.checkViewExistance(view_ref_id);    //user oldin usha productni kurganmi?
-            console.log("doesExist:", doesExist);
+            console.log("doesExist:", doesExist);  //agar user kursa keyingi bosqichga utmaydi.
 
             if(!doesExist) { //mavjud bulmagan vaqtda hechqanday qiymat qushilmaydi va modification bulmaydi.
             const result = await view.insertMemberView(view_ref_id, group_type);

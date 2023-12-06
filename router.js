@@ -4,6 +4,7 @@ const memberController=require("./controllers/memberController"); // membercontr
 const productController=require("./controllers/productController");
 const {getChosenMember} = require("./controllers/memberController");
 const {getAllProducts} = require("./controllers/productController");
+const restaurantController=require("./controllers/restaurantController");
 
 
 /*******************************************
@@ -26,11 +27,15 @@ router.get ("/member/:id", memberController.retrieveAuthMember,
 
  router.post(
     "/products",
-    memberController.retrieveAuthMember,
+    memberController.retrieveAuthMember,  //
     productController.getAllProducts);
 
-router.get("/products/:id", memberController.retrieveAuthMember,
+router.get("/products/:id", memberController.retrieveAuthMember, //auth user chosen productga like bosganmi yuqmi. 
+                                                                 // agar bosilgan bulsa kirgan paytimiz qizil rangda like bulishi lozim.
 productController.getChosenProduct);
+
+router.get("/restaurants", memberController.retrieveAuthMember,
+restaurantController.getRestaurants);
 
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports = router;

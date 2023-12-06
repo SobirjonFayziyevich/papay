@@ -1,10 +1,12 @@
 // turli xil metodlarni yuklashimiz mumkin
 const Member=require("../models/Member");
-// memberController object methodlari orqali boglanayopti
-let memberController=module.exports;
 const jwt = require('jsonwebtoken');
 const assert = require("assert");
 const Definer = require("../lib/mistake");
+
+
+// memberController object methodlari orqali boglanayopti
+let memberController=module.exports;
 
 memberController.signup=async (req, res) => {
     try {    // satandartlarni qurish:
@@ -21,7 +23,7 @@ memberController.signup=async (req, res) => {
                 httpOnly: true,   // hardoim true bulishi lozim
             });
 
-        res.json({state: 'succeed', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
+        res.json({state: 'success', data: new_member}); //standartdagi javob muaffaqiyatli bulsa
     } catch (err) {
         console.log(`ERROR, cont/signup, ${err.message}`);
         res.json({state: 'fail', message: err.message}); // standartdagi javob xato bulsa
@@ -43,7 +45,7 @@ memberController.login=async (req, res) => {
             });
 
 
-        res.json({ state: "succeed", data: result });             //standartdagi javob muaffaqiyatli bulsa
+        res.json({ state: "success", data: result });             //standartdagi javob muaffaqiyatli bulsa
     } catch (err) {
         console.log(`ERROR, cont/login, ${err.message}`);
         res.json({state: 'fail', message: err.message});       // standartdagi javob xato bulsa
@@ -53,7 +55,7 @@ memberController.login=async (req, res) => {
 memberController.logout=(_req, res) => {
     console.log("GET cont/logout");
     res.cookie("access_token", null, {maxAge: 0, httpOnly: true});
-    res.json({ state: "succeed", data: 'logout successfully!' });   
+    res.json({ state: "success", data: 'logout successfully!' });   
 };
 
 memberController.createToken = (result) => {
@@ -84,7 +86,7 @@ memberController.checkMyAuthentication = (req, res) => {
         const member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
         assert.ok(member, Definer.auth_err2);
 
-        res.json({ state: "succeed", data: member }); 
+        res.json({ state: "success", data: member }); 
     } catch(err) {
       throw err;
     }
@@ -99,7 +101,7 @@ memberController.getChosenMember = async (req, res) => {
     const result = await member.getChosenMemberData(req.member, id); //1chi argument(req.member) kimbu req 1chi amalga oshirayopti, 
                                                                      // 2chi argument (id) bu kimni datasini kurmoqchimiz. 
 
-    res.json({ state: "succeed", data: result }); 
+    res.json({ state: "success", data: result }); 
   } catch (err) {
     console.log(`ERROR, cont/getChosenMember, ${err.message}`);
     res.json({ state: "fail", message: err.message }); 
@@ -109,10 +111,11 @@ memberController.getChosenMember = async (req, res) => {
 memberController.retrieveAuthMember = (req, res, next) => {
     try {
         const token = req.cookies["access_token"];
-        req.member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
+        req.member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null; 
+        //agar req.member ichida TOKEN mavjud bulsa,login bulga USER datalarini member ichiga quyib beradi. mavjud bulmasa null quyib beradi.
         next();
     } catch (err) {
-        console.log(`ERROR, cont/retrieveAuthMember, ${err.message}`);
+        console.log(`ERROR, cont/retrieveAuthMember, ${err.message}`); // hattoki, xato bulsa ham keyingi bosqichga utkazadi.
         next(); // login bulgan va bulmaganlar kirb foydalanishi uchun.
     }
 };
