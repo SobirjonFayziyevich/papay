@@ -1,4 +1,4 @@
-const mongoose=require("mongoose"); // mongooseni chaqirib olayopmiz.
+const mongoose = require("mongoose"); // mongooseni chaqirib olayopmiz.
 const {
     member_type_enums,
     member_status_enums,
@@ -92,6 +92,6 @@ const memberSchema= new mongoose.Schema({ // (class deb nomladik) Schema yaratib
 );
 
 // modelni shakillantirib oldik.
-module.exports=mongoose.model("Member", memberSchema);
+module.exports = mongoose.model("Member", memberSchema);
 // member.model.jsdan qaytgan narsa bu model....
 
