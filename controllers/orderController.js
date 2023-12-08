@@ -1,13 +1,16 @@
 // turli xil metodlarni yuklashimiz mumkin
 const Order = require("../models/Order");
 const jwt = require('jsonwebtoken');
-const assert = require("assert");
-const Definer = require("../lib/mistake");
+
 
 
 // memberController object methodlari orqali boglanayopti
 let orderController = module.exports;
+const assert = require("assert");
+const Definer = require("../lib/mistake");
 // createOrderdan faqatgina authenticatet bulganlar foydalana olishi kerak.
+
+
 orderController.createOrder = async (req, res) => {
     try {    // satandartlarni qurish:
         console.log("POST: cont/createOrder");    //routerdan kirib kelgan req turi.
