@@ -4,6 +4,7 @@ const memberController=require("./controllers/memberController"); // membercontr
 const productController=require("./controllers/productController");
 const {getChosenMember} = require("./controllers/memberController");
 const {getAllProducts} = require("./controllers/productController");
+const orderController=require("./controllers/orderController");
 const restaurantController=require("./controllers/restaurantController");
 
 
@@ -21,7 +22,8 @@ router.get ("/member/:id", memberController.retrieveAuthMember,
  memberController.getChosenMember);
 
 
-// // Product related roters
+ // Product related roters
+ // post va get mathod, product,restaurants bular URL hisoblanadi, 
  router.post("/products", memberController.retrieveAuthMember, // bizni kimligimizni aniqlaydi. va likelarni kim bosganini ham bildiradi.
  productController.getAllProducts ); //barcha restar mahsulotlarini bitta qilib qyozish.
 
@@ -40,6 +42,13 @@ restaurantController.getRestaurants);
 
 router.get("/restaurants/:id", memberController.retrieveAuthMember,
 restaurantController.getChosenRestaurant);
+
+
+// ORDER RELATED ROUTERS: (faqat orderlarga dahldor);
+router.post("/orders/create", 
+memberController.retrieveAuthMember,
+orderController.createOrder);
+
 
 
 //bu faylni expoert qilamiz boshqa faylga.
