@@ -49,6 +49,8 @@ router.post("/orders/create",
 memberController.retrieveAuthMember,
 orderController.createOrder);
 
+router.get("/orders",memberController.retrieveAuthMember,
+orderController.getMyOrders);
 
 
 //bu faylni expoert qilamiz boshqa faylga.

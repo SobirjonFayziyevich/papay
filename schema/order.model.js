@@ -5,8 +5,8 @@ const {order_status_enums} = require("../lib/config");
 
 const orderSchema = new mongoose.Schema(
     {
-        order_total_amount: {type: Number, require: true },
-        order_delivery_cost: {type: Number, require: true },
+        order_total_amount: {type: Number, required: true },
+        order_delivery_cost: {type: Number, required: true },
         order_status: {
             type: String, 
             require: false,

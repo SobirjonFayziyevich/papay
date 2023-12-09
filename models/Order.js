@@ -1,4 +1,3 @@
-
 const assert = require("assert");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
 const Definer = require("../lib/mistake");
@@ -38,14 +37,12 @@ class Order {
        //TODO: order items creation
        // await bulgani un database Schema model bn birga ishlaydigan mathod bulgani un.
     await this.recordOrderItemsData(order_id, data); //recordOrderItemsData mathodi orqali har bir productga tegishli bulgan order_itemsni hosil qildik.
-
-
-
           return order_id;
         } catch(err) {
           throw err;  
         }
     }
+
 async saveOrderData(order_total_amount, delivery_cost, mb_id) {
     try {
         const new_order = new this.orderModel({  
@@ -55,7 +52,8 @@ async saveOrderData(order_total_amount, delivery_cost, mb_id) {
         });
          const result = await new_order.save(); //mongoose beradigan xatoliklarni 
         assert.ok(result,Definer.order_err1);
-        console.log("result:::", result);
+
+        // console.log("result:::", result);
 
       return result._id;
     } catch(err) {
@@ -73,7 +71,8 @@ async saveOrderData(order_total_amount, delivery_cost, mb_id) {
           
          //Promise.all syntaxsimiz pro_list arrayimizni  harbirini oxirigacha yakunlanishini taminlab beradi.
          const results = await Promise.all(pro_list); // pro_listdagi jarayon tugamaguncha kut degan jarayon, hammasini tugashini kutish syntaxsisi
-         console.log("results:::", results );
+         console.log("results:::", results ); 
+         return true;
 
       } catch(err) {
          throw err; 
@@ -90,16 +89,58 @@ async saveOrderItemsData(item, order_id) { // buyerda birma bir DataBasega save 
       order_id: order_id,
       product_id: item['_id'],
      });
+
      const result = await order_item.save();
      assert.ok(result, Definer.order_err2);
 
-     return 'created'; // logikamiz muvaffaqiyatli bulsa, created deb javob qaytadi.
+     return 'inserted'; // logikamiz muvaffaqiyatli bulsa, created deb javob qaytadi.
    } catch(err) {
     console.log(err);
     throw new Error(Definer.order_err2);  
    }
-}
+  }
 
+
+
+async getMyOrdersData(member, query) {
+  try {
+     const mb_id = shapeIntoMongooseObjectId(member._id),
+     order_status = query.status.toUpperCase(),
+     //order_statusni belgilab olib, Query objectini ichidan statusni qabul qilib oldim,va toUpperCase mathoddan foydalandim.
+     matches = {mb_id: mb_id, order_status: order_status }; //matches aggregationimiz un kerak buladigan object,
+
+     const result = await this.orderModel
+     .aggregate([
+       { $match: matches}, //mb_id va mb_statuslarni aggregat qilib ber.
+       { $sort: {createdAt: -1 } }, //oxirgi orderlarimni kursat deyopman.
+       //$match va$sortdan hosil bulgan qiymatlar array kurinishida.
+       {
+        $lookup: {
+           from: 'orderitems', //orderItemsda qaysi mahsulotlar icjida mavjudligi haqidagi malumotlar buladi.
+           localField: '_id', //mogoodbdagi order_Itemsning object Idsini olayopman. va shu Id ga tengdir.
+           foreignField: 'order_id',   //foreignField bu => orderItemsga tegishli bulgan Field hisoblanadi.
+           // Object ichidan Idni olib ForeignFielddan izlasin.
+           as: 'order_items',  //datani qabul qilish usulli.
+         },
+       },
+
+        { 
+        $lookup: {
+          from: 'products',
+          localField: 'order_items.product_id',
+          foreignField: '_id',
+          as: 'product_data', //datani qabul qilish usulli.
+        }, 
+      },
+     ])
+
+     .exec();
+     console.log("result:::", result);
+     return result;
+  } catch (err) {
+    throw err;
+  }
+ }
 }
 
   module.exports = Order;

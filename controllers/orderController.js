@@ -30,3 +30,19 @@ orderController.createOrder = async (req, res) => {
     }
 };
 
+orderController.getMyOrders = async (req, res) => {
+    try {
+        console.log("GET: cont/getMyOrders"); //getMyOrdersni faqatgina Authenticated bulgan userlargina ishlata olishi mumkin.
+        assert.ok(req.member, Definer.auth_err5); 
+
+        const order = new Order();  //order objectini yasab oldim
+        const result = await order.getMyOrdersData(req.member, req.query); // order objectimda getMyOrders mathodini hosil qildim.
+                                     //req.query orqali menga qanday malumotlar kerakligini yuborayopman
+        res.json({state: 'success', data: result }); //standartdagi javob muaffaqiyatli bulsa
+    } catch (err) {
+        console.log(`ERROR, cont/getMyOrders, ${err.message}`);
+        res.json({state: 'fail', message: err.message}); // json format orqali, createOrder requestiga login bulmagan user bulsa ham,
+        //json formatda kostimayzed qilgan errorni qabul qilib oladi.
+    }
+}
+
