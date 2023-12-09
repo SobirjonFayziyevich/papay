@@ -52,6 +52,10 @@ orderController.createOrder);
 router.get("/orders",memberController.retrieveAuthMember,
 orderController.getMyOrders);
 
+//post mathodiga, orders hamda edit URl ni yozib olamiz.
+router.post("/orders/edit",memberController.retrieveAuthMember, //memberControllerga authenticated bulgan userni chaqirib oldim.
+orderController.editChosenOrder); //orderControllerimizdan editCosenOrder methodimizni chaqirib oldim.
+
 
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports = router;

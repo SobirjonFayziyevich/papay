@@ -1,13 +1,13 @@
 // turli xil metodlarni yuklashimiz mumkin
 const Order = require("../models/Order");
 const jwt = require('jsonwebtoken');
-
+const assert = require("assert");
+const Definer = require("../lib/mistake");
 
 
 // memberController object methodlari orqali boglanayopti
 let orderController = module.exports;
-const assert = require("assert");
-const Definer = require("../lib/mistake");
+
 // createOrderdan faqatgina authenticatet bulganlar foydalana olishi kerak.
 
 
@@ -44,5 +44,21 @@ orderController.getMyOrders = async (req, res) => {
         res.json({state: 'fail', message: err.message}); // json format orqali, createOrder requestiga login bulmagan user bulsa ham,
         //json formatda kostimayzed qilgan errorni qabul qilib oladi.
     }
-}
+};
+
+orderController.editChosenOrder = async (req, res) => { //orderControllerdan editChosenOrder mathodini ochib olib async functiondan foydalanayopman.
+    try {
+        console.log("POST: cont/editChosenOrder"); //editChosenOrder ni faqatgina Authenticated bulgan userlargina ishlata olishi mumkin.
+        assert.ok(req.member, Definer.auth_err5); //authenticated user bulmasa, manshuyerda error hosil qilsin.
+        //assert bu => eksternal pakage.
+
+        const order = new Order(); //Service modeldan order objectini hosil qilib olayopman.
+        const result = await order.editChosenOrderData(req.member, req.body); //order objectdan editCHosenOrderData mathod hosil qilib oladim va req.member va req.body ni pass qildim.
+        res.json({state: 'success', data: result }); //standartdagi javob muaffaqiyatli bulsa. resultni qaytarsin.
+    }catch(err) {  
+     console.log(`ERROR, cont/editChosenOrder, ${err.message}`);
+        res.json({state: 'fail', message: err.message}); // json format orqali, createOrder requestiga login bulmagan user bulsa ham,
+        //json formatda kostimayzed qilgan errorni qabul qilib oladi.
+    }
+};
 
