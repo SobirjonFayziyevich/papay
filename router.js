@@ -26,20 +26,18 @@ router.get ("/member/:id", memberController.retrieveAuthMember,
  memberController.getChosenMember);
 
 
- // Product related roters
  // post va get mathod, product,restaurants bular URL hisoblanadi, 
- router.post("/products", memberController.retrieveAuthMember, // bizni kimligimizni aniqlaydi. va likelarni kim bosganini ham bildiradi.
+ // PRODUCT RELATED ROUTERS
+router.post("/products", memberController.retrieveAuthMember, // bizni kimligimizni aniqlaydi. va likelarni kim bosganini ham bildiradi.
  productController.getAllProducts ); //barcha restar mahsulotlarini bitta qilib qyozish.
-
- router.post(
+router.post(
     "/products",
     memberController.retrieveAuthMember,  //
     productController.getAllProducts);
-
-router.get("/products/:id", memberController.retrieveAuthMember, //auth user chosen productga like bosganmi yuqmi. 
-                                                                 // agar bosilgan bulsa kirgan paytimiz qizil rangda like bulishi lozim.
+router.get("/products/:id", memberController.retrieveAuthMember, //auth user chosen productga like bosganmi yuqmi.
 productController.getChosenProduct);
 
+// RESTAURANT RELATED ROUTERS
 router.get("/restaurants", memberController.retrieveAuthMember,
 restaurantController.getRestaurants);
 
@@ -56,17 +54,22 @@ orderController.createOrder);
 router.get("/orders",memberController.retrieveAuthMember,
 orderController.getMyOrders);
 
-//post mathodiga, orders hamda edit URl ni yozib olamiz.
 router.post("/orders/edit",memberController.retrieveAuthMember, //memberControllerga authenticated bulgan userni chaqirib oldim.
 orderController.editChosenOrder); //orderControllerimizdan editCosenOrder methodimizni chaqirib oldim.
 
+// API URL => community/create, orders/edit, restaurant, products mamashu mathodlar API URl hisoblanadi.
+// COMMUNITY RELATED ROUTERS START:
 router.post("/community/image",uploader_community.single('community_image'), //single mathod orqali imageni community_image nomi bn backendga yubordim.
 communityController.imageInsertion ); //keyingi mantiqim communityControllerni hosil qilib unga,maxsus imageInsertion degan mathodni yozib oldim.
 
-// API URL => community/create, orders/edit, restaurant, products mamashu mathodlar API URl hisoblanadi.
-
 router.post("/community/create",memberController.retrieveAuthMember,
 communityController.createArticle); 
+
+router.get("/community/articles",memberController.retrieveAuthMember,
+communityController.getMemberArticles); 
+
+
+
 
 
 //bu faylni expoert qilamiz boshqa faylga.
