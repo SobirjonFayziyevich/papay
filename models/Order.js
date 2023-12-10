@@ -161,12 +161,12 @@ async editChosenOrderData(member, data) {  // bu mathodga member va body qismdag
         assert.ok(result, Definer.order_err3);
         return result;
 
-  } catch (err) {
-    throw err;
-  }
+     } catch (err) {
+       throw err;
+     }
+   }
 
-}
-
+   
 }
 
   module.exports = Order;

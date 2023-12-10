@@ -4,9 +4,13 @@ const memberController=require("./controllers/memberController"); // membercontr
 const productController=require("./controllers/productController");
 const {getChosenMember} = require("./controllers/memberController");
 const {getAllProducts} = require("./controllers/productController");
-const orderController=require("./controllers/orderController");
-const restaurantController=require("./controllers/restaurantController");
-
+const orderController = require("./controllers/orderController");
+const communityController = require("./controllers/communityController");
+const restaurantController = require("./controllers/restaurantController");
+const uploader_community = require('./utils/upload-multer')("community"); //community adressi.
+// community argumenti asosida uploader objectini yasab beradi,
+const uploader_member = require('./utils/upload-multer')("members"); //members adressi.
+// member argumenti asosida uploader objectini yasab beradi,
 
 /*******************************************
  *           RECT  API (REACT UN)           *
@@ -55,6 +59,14 @@ orderController.getMyOrders);
 //post mathodiga, orders hamda edit URl ni yozib olamiz.
 router.post("/orders/edit",memberController.retrieveAuthMember, //memberControllerga authenticated bulgan userni chaqirib oldim.
 orderController.editChosenOrder); //orderControllerimizdan editCosenOrder methodimizni chaqirib oldim.
+
+router.post("/community/image",uploader_community.single('community_image'), //single mathod orqali imageni community_image nomi bn backendga yubordim.
+communityController.imageInsertion ); //keyingi mantiqim communityControllerni hosil qilib unga,maxsus imageInsertion degan mathodni yozib oldim.
+
+// API URL => community/create, orders/edit, restaurant, products mamashu mathodlar API URl hisoblanadi.
+
+router.post("/community/create",memberController.retrieveAuthMember,
+communityController.createArticle); 
 
 
 //bu faylni expoert qilamiz boshqa faylga.
