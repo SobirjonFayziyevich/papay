@@ -58,6 +58,9 @@ class Community {
                         as: 'member_data',  //qaysi nom bn hosil qilib olmoqchisiz. 
                     },
                 },
+
+                //mb_datani ichida array bulishi shart emas shunday holatda nima qilishim kerak:
+                { $unwind: '$member_data'}, //object buladigan arraydagi objectini olib tugridan tugri member_data qiymatiga ichiga quyib ber degan mantiqni hosil qildim ,
             ])
             .exec();
             assert.ok(result, Definer.article_err2);

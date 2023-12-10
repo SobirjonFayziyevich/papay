@@ -41,8 +41,8 @@ communityController.getMemberArticles = async (req, res) => {
         // birinchi navbatda boshqa memberning atriclelarini retrive qiladigan mantiq yozsak.boshqa memberning mb_idsini query orqali yuborsak.
       const community = new Community(); //community Service modeldan community objectini hosil qilib oldim.
 
-      const mb_id = req.query.mb_id !== 'none' ? req.query.mb_id : req.member._id;
-      assert.ok(mb_id, Definer.article_err);   
+      const mb_id = req.query.mb_id !== 'none' ? req.query.mb_id : req.member?._id;
+      assert.ok(mb_id, Definer.article_err1);   
       //agar queryni ichidagi member_id  none teng bulmasa,req.query.mb_idni olayopman,
       //agar nonega teng bulsa, authenticat bulgam mb_idsini olayopman.
 
