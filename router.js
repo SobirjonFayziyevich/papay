@@ -62,12 +62,14 @@ orderController.editChosenOrder); //orderControllerimizdan editCosenOrder method
 router.post("/community/image",uploader_community.single('community_image'), //single mathod orqali imageni community_image nomi bn backendga yubordim.
 communityController.imageInsertion ); //keyingi mantiqim communityControllerni hosil qilib unga,maxsus imageInsertion degan mathodni yozib oldim.
 
-router.post("/community/create",memberController.retrieveAuthMember,
+router.post("/community/create", memberController.retrieveAuthMember,
 communityController.createArticle); 
 
-router.get("/community/articles",memberController.retrieveAuthMember,
+router.get("/community/articles", memberController.retrieveAuthMember,
 communityController.getMemberArticles); 
 
+router.get("/community/target", memberController.retrieveAuthMember, // buyerda harqanday atriclega like bosganmizmi, yuqmi shuni topish un uzimizni retrive qilishimz kerak.
+communityController.getArticles); 
 
 
 

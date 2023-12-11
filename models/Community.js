@@ -1,12 +1,9 @@
-
-
-
 // classlar orqali boglanayopti
 const BoArticleModel = require("../schema/bo_article.model");       // Schema modelni chaqirib olamiz.
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcrypt");
-const { shapeIntoMongooseObjectId } = require("../lib/config");
+const { shapeIntoMongooseObjectId, board_id_enum_list } = require("../lib/config");
 
 
 
@@ -61,6 +58,8 @@ class Community {
 
                 //mb_datani ichida array bulishi shart emas shunday holatda nima qilishim kerak:
                 { $unwind: '$member_data'}, //object buladigan arraydagi objectini olib tugridan tugri member_data qiymatiga ichiga quyib ber degan mantiqni hosil qildim ,
+ 
+                // TODO: check auth member liked the chosen target.
             ])
             .exec();
             assert.ok(result, Definer.article_err2);
@@ -72,9 +71,53 @@ class Community {
            throw err; 
            
         }
+    }   
+
+
+        async getArticlesData(member, inquery) {
+            try{
+             const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
+             let matches = inquery.bo_id === 'all' ?  // matches objectini hosil qilib oldim va inqueryni ichidagi bo_idni qiymatini (all)ga teng bulsa,
+             { bo_id: {$in: board_id_enum_list}, art_status: 'active'} //bo_id  arraydagi qiymatdan birini olsin, va art_tatus active qiymatni retrive qilib bersin.
+             : {bo_id: inquery.bo_id, art_status: 'active'}; // agar allga teng bulmagan vaqti, bo_idimiz inqueryni bo_idsiga teng bulsin, va ikkila holatda ham art_status active bulsin.
+             inquery.limit *= 1; // inqueryni ichidagi limitni songa yalantirib oldim
+             inquery.page *= 1; //pageni ham songa aylantirib olamiz.
+             
+             const sort = inquery.order //agarda order objectimiz bulmasa,
+             ? {[`${inquery.order}`] : -1}
+              : { createdAt:  -1 }; // sort objectimiz  vaqt buyicha sorting qiladi.
+
+              const result = await this.boArticleModel.aggregate([
+                  { $match: matches},
+                  { $sort: sort},
+                  { $skip: (inquery.page - 1)*inquery.limit },
+                  { $limit: inquery.limit }, //bitta pageda nechta article mavjud bulishi kerak. 
+                  {
+                    $lookup: {
+                        from: 'members', //memberdan izlayopman.
+                        localField: 'mb_id',
+                        foreignField: '_id',  //membersCollection ichidan qaysi datasitega tenglashtirmoqchisiz,(albatta bu mb_id;)
+                        as: 'member_data',  //qaysi nom bn hosil qilib olmoqchisiz. 
+                    },
+                },
+                  { $unwind: '$member_data'},  //object buladigan arraydagi objectini olib tugridan tugri member_data qiymatiga ichiga quyib ber degan mantiqni hosil qildim ,
+      
+                  // TODO: check auth member liked the chosen target.
+                  
+              ])
+              .exec();
+
+
+              assert.ok(result,Definer.article_err3);
+
+              return result;
+            } catch(err) {
+              throw err;  
+            }
+        }
      } 
  
    
-}
+
 
 module.exports = Community;
