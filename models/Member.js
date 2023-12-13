@@ -32,7 +32,7 @@ class Member{
             result.mb_password = "";
             return result;
         } catch (err) {
-            throw err;
+        throw err;
         }
     }
 
@@ -57,7 +57,7 @@ class Member{
                      .findOne({mb_nick: input.mb_nick})
                      .exec();
         } catch (err) {
-            throw err;
+          throw err;
         }
     }
 
@@ -96,21 +96,22 @@ class Member{
             const mb_id = shapeIntoMongooseObjectId(member._id);
           
             const view = new View(mb_id);
-             const isValid = await view.validateChosenTarget(view_ref_id, group_type);  //biz kurayotgan memberimiz mavjudmi. 
+            const isValid = await view.validateChosenTarget(view_ref_id, group_type);  //biz kurayotgan memberimiz mavjudmi. 
+            console.log("isValid:::", isValid);
              //2chi memberlar haqiqiymi, 3- view logini hosil qildik 4- modifay qildik 
-            // assert.ok(isValid, Definer.general_err2 );
+            assert.ok(isValid, Definer.general_err2 );
 
             //loged user has seen target
-            const doesExist = await view.checkViewExistance(view_ref_id);    //user oldin usha productni kurganmi?
-            console.log("doesExist:", doesExist);  //agar user kursa keyingi bosqichga utmaydi.
+            
+            const doesExist = await view.checkViewExistence(view_ref_id);    //user oldin usha productni kurganmi?
+            console.log("doesExist:::", doesExist);  //agar user kursa keyingi bosqichga utmaydi.
 
-            if(!doesExist) { //mavjud bulmagan vaqtda hechqanday qiymat qushilmaydi va modification bulmaydi.
+            if(!doesExist) { // agar exit bulmasa inserMemberView mantiqini kiritayopmiz.((mavjud bulmagan vaqtda hechqanday qiymat qushilmaydi va modification bulmaydi.))
             const result = await view.insertMemberView(view_ref_id, group_type);
             assert.ok(result, Definer.general_err1);
             } 
            return true;
-           
-        } catch (err) {
+         } catch (err) {
           throw err;
         }
     }

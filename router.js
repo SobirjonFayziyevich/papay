@@ -69,7 +69,10 @@ router.get("/community/articles", memberController.retrieveAuthMember,
 communityController.getMemberArticles); 
 
 router.get("/community/target", memberController.retrieveAuthMember, // buyerda harqanday atriclega like bosganmizmi, yuqmi shuni topish un uzimizni retrive qilishimz kerak.
-communityController.getArticles); 
+communityController.getArticles);
+
+router.get("/community/single-article/:art_id", memberController.retrieveAuthMember, // buyerda harqanday atriclega like bosganmizmi, yuqmi shuni topish un uzimizni retrive qilishimz kerak.
+communityController.getChosenArticle); 
 
 
 

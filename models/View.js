@@ -1,12 +1,14 @@
 const ViewModel = require("../schema/view.model");
 const MemberModel = require("../schema/member.model");
 const ProductModel = require("../schema/product.model");
+const BoArticleModel = require("../schema/bo_article.model");
 
 class View {
   constructor(mb_id) {
     this.viewModel = ViewModel;
     this.productModel = ProductModel;
     this.memberModel = MemberModel;
+    this.boArticleModel = BoArticleModel;
     this.mb_id = mb_id;
   }
 
@@ -16,7 +18,7 @@ class View {
       switch (group_type) { //switch argumenti group_type orqali kerakli kollekshinlardan izlaymiz.
         case "member":  // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
           result = await this.memberModel  //memberSchema modelni chaqirayopmiz.
-            .findById({  //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+          .findOne({  // findOne mathodi ni urniga agarda findById mathodi bulsa, keyingi bosqichga xatolikni kursatmasdan utkazib yuboraveradi.
               _id: view_ref_id,
               mb_status: "ACTIVE",
             })
@@ -25,14 +27,22 @@ class View {
 
           case "product":  // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
           result = await this.productModel  //memberSchema modelni chaqirayopmiz.
-            .findById({  //memberschema modelidan findById metodi orqali Id va mb_status ACTIVE holatda bulishi kerak.
+          .findOne({  // findOne mathodi ni urniga agarda findById mathodi bulsa, keyingi bosqichga xatolikni kursatmasdan utkazib yuboraveradi.
               _id: view_ref_id,
-              mb_status: "PROCESS",
+              product_status: "PROCESSx",
             })
             .exec();
           break;
-      }
 
+          case "community":  // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
+          result = await this.boArticleModel  //memberSchema modelni chaqirayopmiz.
+            .findOne({  // findOne mathodi ni urniga agarda findById mathodi bulsa, keyingi bosqichga xatolikni kursatmasdan utkazib yuboraveradi.
+              _id: view_ref_id,
+              art_status: "active",
+            })
+            .exec();
+          break;
+        }
       return !!result; // true va falesni qiymatini qaytaradigan syntax, resultni qiymatini tekshiradi.
     } catch (err) {
       throw err;
@@ -81,6 +91,17 @@ class View {
               )
               .exec();
             break;
+
+            case "community":     //productni sonini oshirish un tekshiradi
+            await this.boArticleModel
+              .findByIdAndUpdate(
+                {
+                  _id: view_ref_id,
+                },
+                { $inc: { art_views: 1 } }   // product viewni qiymatini oshirish kerak.
+              )
+              .exec();
+            break;
       }
       return true;
     } catch (err) {
@@ -88,7 +109,7 @@ class View {
     }
   }
 
-  async checkViewExistance(view_ref_id) {
+  async checkViewExistence(view_ref_id) {
     try {
       const view = await this.viewModel
         .findOne({

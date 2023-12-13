@@ -154,11 +154,12 @@ async editChosenOrderData(member, data) {  // bu mathodga member va body qismdag
       // mb_id ,order_status, runValidators objectlaridan foydalanamiz.
        {mb_id: mb_id, _id: order_id}, //mb_id mb_idga teng, id => order_id teng bulishi kerak.
        {order_status: order_status}, //authenticat bulgan userning ichidagi datasidan olayopmiz.
-       {runValidators: true, lean: true, returnDocument: 'after' } 
-       );
+       {runValidators: true, lean: true, returnDocument: 'after' }  
+       );      // returnDocument => o'zgargan qiymatlarini yubor.
 
         console.log(result);
-        assert.ok(result, Definer.order_err3);
+        assert.ok(result, Definer.order_err3); // umumiy qiymatni kursat
+        
         return result;
 
      } catch (err) {

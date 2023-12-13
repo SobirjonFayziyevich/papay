@@ -4,6 +4,7 @@ const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcrypt");
 const { shapeIntoMongooseObjectId, board_id_enum_list } = require("../lib/config");
+const Member = require("./Member");
 
 
 
@@ -72,9 +73,8 @@ class Community {
            
         }
     }   
-
-
-        async getArticlesData(member, inquery) {
+    
+    async getArticlesData(member, inquery) {
             try{
              const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
              let matches = inquery.bo_id === 'all' ?  // matches objectini hosil qilib oldim va inqueryni ichidagi bo_idni qiymatini (all)ga teng bulsa,
@@ -94,28 +94,41 @@ class Community {
                   { $limit: inquery.limit }, //bitta pageda nechta article mavjud bulishi kerak. 
                   {
                     $lookup: {
-                        from: 'members', //memberdan izlayopman.
-                        localField: 'mb_id',
+                        from: 'members', //atabasedagi members collectiondan izlayopman.
+                        localField: 'mb_id', // yuqoridagi tenglashtirb olgan mb_id izlayopmiz
                         foreignField: '_id',  //membersCollection ichidan qaysi datasitega tenglashtirmoqchisiz,(albatta bu mb_id;)
                         as: 'member_data',  //qaysi nom bn hosil qilib olmoqchisiz. 
                     },
-                },
+                },  //olgingan array natijani, object kurinishiga uzgartirish.
                   { $unwind: '$member_data'},  //object buladigan arraydagi objectini olib tugridan tugri member_data qiymatiga ichiga quyib ber degan mantiqni hosil qildim ,
       
                   // TODO: check auth member liked the chosen target.
-                  
-              ])
+                  ])
               .exec();
-
-
               assert.ok(result,Definer.article_err3);
-
               return result;
             } catch(err) {
               throw err;  
             }
         }
-     } 
+
+        async getChosenArticleData(member, art_id) {
+            try {
+              art_id = shapeIntoMongooseObjectId(art_id);
+              if(member) { // agar men login bulmaga user bulsam, buyerga malumot kelmaydi.
+                const member_obj = new Member();
+                await member_obj.viewChosenItemByMember(member, art_id, "community");
+            }
+            const result = await this.boArticleModel.findById({ _id: art_id }).exec();
+              // Schema modelimizni findByid qilib art_id ni past qilayopmiz.
+
+             assert.ok(result, Definer.article_err3); 
+             return result;
+           } catch(err) {
+             throw err;  
+            }
+        }
+    } 
  
    
 
