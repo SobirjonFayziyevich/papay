@@ -6,6 +6,7 @@ const {getChosenMember} = require("./controllers/memberController");
 const {getAllProducts} = require("./controllers/productController");
 const orderController = require("./controllers/orderController");
 const communityController = require("./controllers/communityController");
+const followController = require("./controllers/followController");
 const restaurantController = require("./controllers/restaurantController");
 const uploader_community = require('./utils/upload-multer')("community"); //community adressi.
 // community argumenti asosida uploader objectini yasab beradi,
@@ -73,6 +74,10 @@ communityController.getArticles);
 
 router.get("/community/single-article/:art_id", memberController.retrieveAuthMember, // buyerda harqanday atriclega like bosganmizmi, yuqmi shuni topish un uzimizni retrive qilishimz kerak.
 communityController.getChosenArticle); 
+
+//  Following related router;
+router.post("/follow/subscribe", memberController.retrieveAuthMember,
+followController.subscribe);
 
 
 
