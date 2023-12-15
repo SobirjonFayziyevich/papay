@@ -82,6 +82,8 @@ followController.subscribe);
 router.post("/follow/unsubscribe", memberController.retrieveAuthMember,
 followController.unsubscribe);
 
+router.get("/follow/followings", followController. getMemberFollowings);
+
 
 //bu faylni expoert qilamiz boshqa faylga.
 module.exports = router;

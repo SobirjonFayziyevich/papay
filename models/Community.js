@@ -35,12 +35,12 @@ class Community {
        }
     } 
 
-    async getMemberArticlesData(member, mb_id, inquery) { //faqat save maqsadda ishlatiladi bu mathodimiz.
+    async getMemberArticlesData(member, mb_id, inquiry) { //faqat save maqsadda ishlatiladi bu mathodimiz.
         try{
             const auth_mb_id = shapeIntoMongooseObjectId(member?._id); //auth mb_id hosil qilib shaping qilayopman
             mb_id = shapeIntoMongooseObjectId(mb_id);
-            const page = inquery['page'] ? inquery['page'] * 1 : 1; // pageni inqueryni ichiga yuborayopman.
-            const limit = inquery['limit'] ? inquery['limit'] * 1 : 5; 
+            const page = inquiry['page'] ? inquiry['page'] * 1 : 1; // pageni inquiry ichiga yuborayopman.
+            const limit = inquiry['limit'] ? inquiry['limit'] * 1 : 5; 
 
             const result = await this.boArticleModel
             .aggregate([ // aggregateni ichiga arrayni provite qildim.
@@ -74,24 +74,24 @@ class Community {
         }
     }   
     
-    async getArticlesData(member, inquery) {
+    async getArticlesData(member, inquiry) {
             try{
              const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
-             let matches = inquery.bo_id === 'all' ?  // matches objectini hosil qilib oldim va inqueryni ichidagi bo_idni qiymatini (all)ga teng bulsa,
+             let matches = inquiry.bo_id === 'all' ?  // matches objectini hosil qilib oldim va inquiry ichidagi bo_idni qiymatini (all)ga teng bulsa,
              { bo_id: {$in: board_id_enum_list}, art_status: 'active'} //bo_id  arraydagi qiymatdan birini olsin, va art_tatus active qiymatni retrive qilib bersin.
-             : {bo_id: inquery.bo_id, art_status: 'active'}; // agar allga teng bulmagan vaqti, bo_idimiz inqueryni bo_idsiga teng bulsin, va ikkila holatda ham art_status active bulsin.
-             inquery.limit *= 1; // inqueryni ichidagi limitni songa yalantirib oldim
-             inquery.page *= 1; //pageni ham songa aylantirib olamiz.
+             : {bo_id: inquiry.bo_id, art_status: 'active'}; // agar allga teng bulmagan vaqti, bo_idimiz inquiry bo_idsiga teng bulsin, va ikkila holatda ham art_status active bulsin.
+             inquiry.limit *= 1; // inquiry ichidagi limitni songa yalantirib oldim
+             inquiry.page *= 1; //pageni ham songa aylantirib olamiz.
              
-             const sort = inquery.order //agarda order objectimiz bulmasa,
-             ? {[`${inquery.order}`] : -1}
+             const sort = inquiry.order //agarda order objectimiz bulmasa,
+             ? {[`${inquiry.order}`] : -1}
               : { createdAt:  -1 }; // sort objectimiz  vaqt buyicha sorting qiladi.
 
               const result = await this.boArticleModel.aggregate([
                   { $match: matches},
                   { $sort: sort},
-                  { $skip: (inquery.page - 1)*inquery.limit },
-                  { $limit: inquery.limit }, //bitta pageda nechta article mavjud bulishi kerak. 
+                  { $skip: (inquiry.page - 1)*inquiry.limit },
+                  { $limit: inquiry.limit }, //bitta pageda nechta article mavjud bulishi kerak. 
                   {
                     $lookup: {
                         from: 'members', //atabasedagi members collectiondan izlayopman.
