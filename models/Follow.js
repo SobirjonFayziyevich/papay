@@ -1,6 +1,6 @@
 
 const assert = require("assert");
-const {shapeIntoMongooseObjectId} = require("../lib/config");   // Product Schemani export qilib oldik.
+const { shapeIntoMongooseObjectId, lookup_auth_member_following } = require("../lib/config");   // Product Schemani export qilib oldik.
 const Definer = require("../lib/mistake");
 const FollowModel = require("../schema/follow.model");
 const MemberModel = require("../schema/member.model");
@@ -127,6 +127,45 @@ async getMemberFollowingsData(inquiry) {
         } catch(err) {
           throw err;
     }
+}
+
+async getMemberFollowersData(member, inquiry) {
+  try { 
+    const follow_id = shapeIntoMongooseObjectId(inquiry.mb_id), //following qilgan odamlarni topmoqchimiz.
+       page = inquiry.page * 1,
+       limit = inquiry.limit * 1;
+
+    let aggregateQuery = [
+      { $match: {follow_id: follow_id } },
+      { $sort: { createdAt: -1 } }, 
+      { $skip: (page - 1) * limit },
+      { $limit: limit },
+      {
+        $lookup: {
+          from: 'members',
+          localField: 'subscriber_id',
+          foreignField: '_id',
+          as: "subscriber_member_data",
+        },
+      },
+
+     { $unwind: "$subscriber_member_data" },
+    ];
+ // following followed back to subscriber
+ if(member && member._id === inquiry.mb_id) { // agar member mavjud bulsa, authenticat user request qilayotgan bulsa,
+      // req qilayotgan user uzining followerlar ruyxatini req qilayotgan bulsa...
+      // console.log("PASSED");
+      aggregateQuery.push(lookup_auth_member_following(follow_id));
+  } 
+    const result = await this.followModel
+    .aggregate(aggregateQuery)
+    .exec();
+
+    assert.ok(result, Definer.follow_err3);
+    return result;
+  } catch(err) {
+    throw err;
+  }
 }
 
 }
