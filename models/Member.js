@@ -6,7 +6,7 @@ const MemberModel = require("../schema/member.model");       // Schema modelni c
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcrypt");
-const { shapeIntoMongooseObjectId } = require("../lib/config");
+const { shapeIntoMongooseObjectId, lookup_auth_member_following } = require("../lib/config");
 const View = require("./View");
 
 
@@ -31,7 +31,7 @@ class Member{
             }
             result.mb_password = "";
             return result;
-        } catch (err) {
+        } catch (err) { 
         throw err;
         }
     }
@@ -63,24 +63,24 @@ class Member{
 
     async getChosenMemberData(member, id) {
         try {
+            const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
             id = shapeIntoMongooseObjectId(id);
-            
-             console.log("member:::", member);
+            console.log("member:::", member);
+
+            let aggregateQuery = [
+                { $match: { _id: id, mb_status: "ACTIVE" } },
+                { $unset: "mb_password"},        // mb_passwordni olib bermaydi
+             ];
 
              if(member) {
                  // condition not seen before.
               await this.viewChosenItemByMember(member, id, "member");
+              //TODO: check auth member  likes the chosen member.
+              aggregateQuery.push(lookup_auth_member_following(auth_mb_id, 'members'));
              }
 
             const result = await this.memberModel
-            .aggregate([   //
-                { $match: { _id: id, mb_status: "ACTIVE" } },
-               { $unset: "mb_password"},        // mb_passwordni olib bermaydi
-
-              
-               //TODO: check auth member  likes the chosen member.
-
-        ])
+            .aggregate(aggregateQuery)
          .exec();
 
          assert.ok(result, Definer.general_err2);

@@ -155,7 +155,8 @@ async getMemberFollowersData(member, inquiry) {
  if(member && member._id === inquiry.mb_id) { // agar member mavjud bulsa, authenticat user request qilayotgan bulsa,
       // req qilayotgan user uzining followerlar ruyxatini req qilayotgan bulsa...
       // console.log("PASSED");
-      aggregateQuery.push(lookup_auth_member_following(follow_id));
+      aggregateQuery.push(lookup_auth_member_following(follow_id, 'follows'));
+      // lookup_auth_member_followingni aggregateQueryga push qilayopmiz.
   } 
     const result = await this.followModel
     .aggregate(aggregateQuery)

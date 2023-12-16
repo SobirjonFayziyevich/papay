@@ -23,6 +23,7 @@ router.post("/signup", memberController.signup); // membercontrollerni ichidagi 
 router.post("/login", memberController.login); // membercontrollerni ichidagi loginga borayopti.
 router.get("/logout", memberController.logout); // membercontrollerni ichidagi logoutga borayopti.
 router.get ("/check-me", memberController.checkMyAuthentication);
+
 router.get ("/member/:id", memberController.retrieveAuthMember,
  memberController.getChosenMember);
 
