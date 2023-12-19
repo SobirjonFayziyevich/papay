@@ -3,7 +3,7 @@ const BoArticleModel = require("../schema/bo_article.model");       // Schema mo
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcrypt");
-const { shapeIntoMongooseObjectId, board_id_enum_list } = require("../lib/config");
+const { shapeIntoMongooseObjectId, board_id_enum_list,lookup_auth_member_liked } = require("../lib/config");
 const Member = require("./Member");
 
 
@@ -31,7 +31,7 @@ class Community {
          return await article.save();  //article mathodimni qiymatini save qilib qaytarsin, 
        } catch(mongo_err) {
            console.log(mongo_err); //agar xatolik bulsa, kursatsin.
-         throw new Error(Definer.auth_err1);  
+         throw new Error(Definer.mongo_validation_err1);  
        }
     } 
 
@@ -59,6 +59,7 @@ class Community {
 
                 //mb_datani ichida array bulishi shart emas shunday holatda nima qilishim kerak:
                 { $unwind: '$member_data'}, //object buladigan arraydagi objectini olib tugridan tugri member_data qiymatiga ichiga quyib ber degan mantiqni hosil qildim ,
+                lookup_auth_member_liked(auth_mb_id),
  
                 // TODO: check auth member liked the chosen target.
             ])
@@ -101,8 +102,10 @@ class Community {
                     },
                 },  //olgingan array natijani, object kurinishiga uzgartirish.
                   { $unwind: '$member_data'},  //object buladigan arraydagi objectini olib tugridan tugri member_data qiymatiga ichiga quyib ber degan mantiqni hosil qildim ,
-      
-                  // TODO: check auth member liked the chosen target.
+                  
+                   // TODO: check auth member liked the chosen target.
+                  lookup_auth_member_liked(auth_mb_id),
+
                   ])
               .exec();
               assert.ok(result,Definer.article_err3);

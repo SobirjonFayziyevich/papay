@@ -169,6 +169,8 @@ async getMemberFollowersData(member, inquiry) {
   }
 }
 
+
+
 }
 
 module.exports = Follow;

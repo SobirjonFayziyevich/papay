@@ -53,6 +53,7 @@ class Product {
 
     async getChosenProductData(member, id) {
         try {
+            console.log("getChosenProductData is working");
            const auth_mb_id = shapeIntoMongooseObjectId(member?._id); //memberni ichidan id ni topolamiz. 
            id = shapeIntoMongooseObjectId(id);
 

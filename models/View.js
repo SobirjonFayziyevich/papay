@@ -14,6 +14,7 @@ class View {
 
   async validateChosenTarget(view_ref_id, group_type) { 
     try {
+      console.log("validateChosenTarget is working!!");
       let result;
       switch (group_type) { //switch argumenti group_type orqali kerakli kollekshinlardan izlaymiz.
         case "member":  // faqat memberlarni tomosha qiyayotganimz un member quyamiz.
@@ -29,7 +30,7 @@ class View {
           result = await this.productModel  //memberSchema modelni chaqirayopmiz.
           .findOne({  // findOne mathodi ni urniga agarda findById mathodi bulsa, keyingi bosqichga xatolikni kursatmasdan utkazib yuboraveradi.
               _id: view_ref_id,
-              product_status: "PROCESSx",
+              product_status: "PROCESS",
             })
             .exec();
           break;
@@ -111,6 +112,7 @@ class View {
 
   async checkViewExistence(view_ref_id) {
     try {
+      console.log("checkView is working!1");
       const view = await this.viewModel
         .findOne({
           mb_id: this.mb_id,

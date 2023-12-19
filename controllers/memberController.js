@@ -3,6 +3,7 @@ const Member=require("../models/Member");
 const jwt = require('jsonwebtoken');
 const assert = require("assert");
 const Definer = require("../lib/mistake");
+const { constants } = require("crypto");
 
 
 // memberController object methodlari orqali boglanayopti
@@ -108,6 +109,30 @@ memberController.getChosenMember = async (req, res) => {
    }
 };
 
+memberController.likeMemberChosen = async (req, res) => {
+    try {
+        console.log("POST cont/likeMemberChosen");
+
+        assert.ok(req.member, Definer.auth_err5);
+        const member = new Member();  //Service modeldan object olayopmiz.
+        const like_ref_id = req.body.like_ref_id;
+        group_type = req.body.group_type;  // qanday turdagi targetni like qilayopman, buni req.bodyni ichiga group type nomi bn olayopman.
+
+        const result = await member.likeChosenItemByMember(
+
+            req.member, 
+            like_ref_id, 
+            group_type
+            );
+        
+        res.json({ state: "success", data: result }); 
+      } catch (err) {
+        console.log(`ERROR, cont/likeMemberChosen, ${err.message}`);
+        res.json({ state: "fail", message: err.message }); 
+       }
+    };
+
+
 memberController.retrieveAuthMember = (req, res, next) => {
     try {
         const token = req.cookies["access_token"]; 
@@ -119,3 +144,5 @@ memberController.retrieveAuthMember = (req, res, next) => {
         next(); // login bulgan va bulmaganlar kirb foydalanishi uchun.
     }
 };
+
+

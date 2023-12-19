@@ -6,8 +6,9 @@ const MemberModel = require("../schema/member.model");       // Schema modelni c
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcrypt");
-const { shapeIntoMongooseObjectId, lookup_auth_member_following } = require("../lib/config");
+const { shapeIntoMongooseObjectId, lookup_auth_member_following, lookup_auth_member_liked } = require("../lib/config");
 const View = require("./View");
+const Like = require("./Like");
 
 
 class Member{
@@ -27,7 +28,7 @@ class Member{
                 console.log(result);
             } catch (mongo_err) {
                 console.log(mongo_err);
-                throw new Error(Definer.auth_err1);                            //definer classsini yasab olamiz.
+                throw new Error(Definer.mongo_validation_err1);                            //definer classsini yasab olamiz.
             }
             result.mb_password = "";
             return result;
@@ -75,6 +76,7 @@ class Member{
              if(member) {
                  // condition not seen before.
               await this.viewChosenItemByMember(member, id, "member");
+              aggregateQuery.push(lookup_auth_member_liked(auth_mb_id));
               //TODO: check auth member  likes the chosen member.
               aggregateQuery.push(lookup_auth_member_following(auth_mb_id, 'members'));
              }
@@ -92,6 +94,7 @@ class Member{
 
     async viewChosenItemByMember (member, view_ref_id, group_type) {
         try {
+            console.log("viewChosenItemByMember is working!!!");
             view_ref_id = shapeIntoMongooseObjectId(view_ref_id); //view_ref_idni mongooDB ID ga aylantirayopmiz.
             const mb_id = shapeIntoMongooseObjectId(member._id);
           
@@ -115,6 +118,43 @@ class Member{
           throw err;
         }
     }
+
+    async likeChosenItemByMember (member, like_ref_id , group_type) {
+        try {
+            console.log(' likeChosenItemByMember is working!!!!');
+            like_ref_id = shapeIntoMongooseObjectId(like_ref_id); //view_ref_idni mongooDB ID ga aylantirayopmiz.
+            const mb_id = shapeIntoMongooseObjectId(member._id);
+          
+            const like = new Like(mb_id);
+            const isValid = await like.validateTargetItem(like_ref_id , group_type);
+
+            
+            assert.ok(isValid, Definer.general_err2);
+
+             
+            // doesExit // like sonini 1taga oshirish mantiqi..
+            const doesExist = await like.checkLikeExistence(like_ref_id);
+            console.log('doesExist::', doesExist); 
+
+            // oldin like bosilmagan  bulsa likes bulishi kerak... target qiymati 1ga oshishi kerak.
+            let data = doesExist // har ikki natijani dataga tenglashtirib oldim.
+             ? await like.removeMemberLike(like_ref_id, group_type) // agar mavjud bulsa:
+             : await like.insertMemberLike(like_ref_id, group_type); // agar mavjud bulmasa:
+            assert.ok(data, Definer.general_err1);
+
+        const result = {
+          like_group: data.like_group,
+          like_ref_id: data.like_ref_id,
+          like_status: doesExist ? 0 : 1,
+        };
+          
+          return result;
+         } catch (err) {
+          throw err;
+        }
+    }
+
+
 }
 
 module.exports = Member;
