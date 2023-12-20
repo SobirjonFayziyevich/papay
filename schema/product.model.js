@@ -57,7 +57,7 @@ const productSchema=new mongoose.Schema({
             },
         },
         product_volume: {   //ichimliklarni hajmini kursatish un kerakli method:
-            type: String,
+            type: Number,
             default: 1,
             required: function () {
                 return this.product_collection === "drink";  //agarda product_volume (true) bulganda, (product_size) false buladi.
