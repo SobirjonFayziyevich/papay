@@ -21,7 +21,7 @@ class Product {
         try {
             const auth_mb_id = shapeIntoMongooseObjectId(member?._id);   //memberni ichidan id ni topolamiz. 
 
-            let match = {product_status: "PROCESS"};
+            let match = {product_status: "PROCESS" };
             if (data.restaurant_mb_id) {
                 match["restaurant_mb_id"] = shapeIntoMongooseObjectId(
                     data.restaurant_mb_id
@@ -65,7 +65,7 @@ class Product {
 
            const result = await this.productModel
            .aggregate([
-               { $match: { _id: id, product_status: 'PROCESS'} },
+               { $match: { _id: id, product_status: "PROCESS"} },
                //TODO: check auth member product likes
            ])
            .exec();

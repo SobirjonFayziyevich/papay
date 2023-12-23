@@ -4,6 +4,7 @@ const app=express();
 const router = require("./router");       //router.jsni chaqirib olayopmz.
 const router_bssr=require("./router_bssr.js");
 const cookieParser = require("cookie-parser");
+const cors = require('cors'); 
 
 
 let session=require("express-session");  // express sessionni chaqirib oldik.
@@ -16,10 +17,18 @@ const store=new MongoDBStore({                           // MongoDBStore orqali 
 // 1: Kirish code
 // Har qanday browserdan kelayotgan requestlar un public folder ochiq degani.
 app.use(express.static("public"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
+app.use("/uploads", express.static(__dirname + "/uploads")); //uploadsni ichidagi malunotlarni tugridan tugri uqishga.
 //json formatdagi datani objectga exchange qilish.
 app.use(express.json());
 //html formatdan qabul qilinadigan datalarni serverga kiritish
 app.use(express.urlencoded({extended: true}));
+app.use(
+    cors({  //faqat URL dan keladigan malumotlarni qabul qilsin degani.
+        credentials: true,
+        origin: true, //har qanday domein (joydan)kelayotgan requestni qabul qilsin.
+    })
+);
 app.use(cookieParser());
 
 // 2: Session code
