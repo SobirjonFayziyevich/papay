@@ -71,7 +71,7 @@ class Product {
            .exec();
 
            assert.ok(result, Definer.general_err1);    //kelayotgan datani mavjudligini yekshirib olamiz.
-           return result;  // qiymati mavjud bulsa return qilsin.
+           return result[0];  // qiymati mavjud bulsa return qilsin.
         } catch(err) {
           throw err;
         }
