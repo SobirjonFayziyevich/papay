@@ -30,6 +30,13 @@ router.get ("/member/:id", memberController.retrieveAuthMember,
  router.post("/member-liken", memberController.retrieveAuthMember,
  memberController.likeMemberChosen);
 
+ router.post(
+    "/member/update",
+    memberController.retrieveAuthMember,
+    uploader_member.single("mb_image"),
+    memberController.updateMember
+  );
+
 
  // post va get mathod, product,restaurants bular URL hisoblanadi, 
  // PRODUCT RELATED ROUTERS

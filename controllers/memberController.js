@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const assert = require("assert");
 const Definer = require("../lib/mistake");
 const { constants } = require("crypto");
+const { json } = require("express");
+
 
 
 // memberController object methodlari orqali boglanayopti
@@ -132,6 +134,22 @@ memberController.likeMemberChosen = async (req, res) => {
        }
     };
 
+    memberController.updateMember = async (req, res) => {
+        try {
+          console.log("POST: cont/updateMember");
+          console.log(req.body);
+          console.log(req.file); 
+          assert.ok(req.member, Definer.auth_err3);
+          const data = req.body;
+          const member = new Member();
+          const result = await member.updateMemberData(req.member?._id, req.body, req.file); //updateMemberDtaega qanday qiymatlar kirishi kerak; req_memberni Idsi, rq.body va req.file;
+          console.log("result;;;", result);
+          res.json({ state: "success", data: result });
+        } catch (err) {
+          console.log(`ERROR, cont/updateMember, ${err.message}`);
+          res.json({ state: "fail", message: err.message });
+        }
+      };
 
 memberController.retrieveAuthMember = (req, res, next) => {
     try {

@@ -1,6 +1,3 @@
-
-
-
 // classlar orqali boglanayopti
 const MemberModel = require("../schema/member.model");       // Schema modelni chaqirib olamiz.
 const Definer = require("../lib/mistake");
@@ -11,7 +8,7 @@ const View = require("./View");
 const Like = require("./Like");
 
 
-class Member{
+class Member {
     constructor() {
         this.memberModel = MemberModel;   // service model ichida schema model =dan foydalinyabdi
     }
@@ -33,11 +30,10 @@ class Member{
             result.mb_password = "";
             return result;
         } catch (err) { 
-        throw err;
-        }
+        throw err; 
     }
-
-    async loginData(input) {
+};
+  async loginData(input) {
         try {
             const member = await this.memberModel
                 .findOne(
@@ -60,9 +56,9 @@ class Member{
         } catch (err) {
           throw err;
         }
-    }
+    };
 
-    async getChosenMemberData(member, id) {
+    async getChosenMemberData(Member, id) {
         try {
             const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
             id = shapeIntoMongooseObjectId(id);
@@ -90,7 +86,7 @@ class Member{
         } catch (err) {
           throw err;
         }
-    }
+    };
 
     async viewChosenItemByMember (member, view_ref_id, group_type) {
         try {
@@ -117,7 +113,7 @@ class Member{
          } catch (err) {
           throw err;
         }
-    }
+    };
 
     async likeChosenItemByMember (member, like_ref_id , group_type) {
         try {
@@ -152,7 +148,32 @@ class Member{
          } catch (err) {
           throw err;
         }
-    }
+    };
+
+    async updateMemberData(id, data, image) {
+        try {
+          const mb_id = shapeIntoMongooseObjectId(id);
+    
+          let params = {
+            mb_nick: data.mb_nick,
+            mb_phone: data.mb_phone,
+            mb_address: data.mb_address,
+            mb_description: data.mb_description,
+            mb_image: image ? image.path : null,
+          };
+          for (let prop in params) if (!params[prop]) delete params[prop]; //paramni ichidagi propsdan qiymatni ol, agar props bulmsa, paramdagi prosni uchir;
+          const result = await this.memberModel.findOneAndUpdate(  //pdate qilandan keyingi qymatlarni bersin 
+            { _id: mb_id },
+            params,
+            { runValidators: true, lean: true, returnDocument: "after" }
+          ).exec();
+          assert.ok(result, Definer.general_err1);
+          return result;
+        } catch (err) {
+           throw err;
+        }
+      };
+    
 
 
 }

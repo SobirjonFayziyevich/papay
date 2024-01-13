@@ -5,6 +5,7 @@ const assert = require("assert");
 const bcrypt = require("bcrypt");
 const { shapeIntoMongooseObjectId, board_id_enum_list,lookup_auth_member_liked } = require("../lib/config");
 const Member = require("./Member");
+const { auth_err5 } = require("../lib/mistake");
 
 
 
