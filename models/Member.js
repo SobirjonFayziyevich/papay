@@ -58,7 +58,7 @@ class Member {
         }
     };
 
-    async getChosenMemberData(Member, id) {
+    async getChosenMemberData(member, id) {
         try {
             const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
             id = shapeIntoMongooseObjectId(id);

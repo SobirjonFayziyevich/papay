@@ -19,6 +19,7 @@ class Follow {
 }
 async subscribeData(member, data) {
   try {
+    console.log("***************:::",data);
       assert.ok(member._id !== data.mb_id, Definer.follow_err1);
       // authenticed bulgan user va usha authenticed bulgan userni qaysi member_idga subscribe bulmoqchi bulmasa, keyingi prosessga utkazsin.
       const subscriber_id = shapeIntoMongooseObjectId(member._id);
