@@ -1,4 +1,5 @@
 console.log("web serverni boshladik");
+const http=require("http");
 const express=require("express");
 const app=express();
 const router = require("./router");       //router.jsni chaqirib olayopmz.
@@ -60,5 +61,39 @@ app.set("view engine", "ejs",);  //ejs - backendda frontendni qurishda yordam be
 app.use("/", router); //expressga router.js ni bogladik.//XARIDORLAR un kerak bulgan frontend loyihasi.
 app.use("/resto", router_bssr); // Asosan(ADMINvaRESTAUTANT USER)lari un kerakli loyiha.
 
+// **  SOKET.IO BACKEND SERVER  ***************
+const server = http.createServer(app); // bu yerda app bjjulgan boiz, app ni moduledn export qilmayman.
+const io = require("socket.io")(server, { // buyerda qushimcha shartlar kiritib oldim.socket.io docuentatinda yuq mantiq.
+  serveClient: false,
+  origins: "*:*",     // clientni server qilmyman, originsni hamma portga ochaman. "*:*"=> ixtiyotiy kelgan ulanishi mumkin degani.
+  transport: ["websocket", "xhr-polling"],  // transport pratakolini yozdim,
+});
+let online_users = 0; // onlain userlarni sonini kiritish
+io.on("connection", function (socket) { // kimdir bizni serverga ulansa xabar shu yerga keladi degani.
+  online_users++;     // onlain userlar soni bittaga oshsin.
+  console.log(("new user, total:", online_users));  // yangi user qushildi
 
-module.exports=app;
+  // socket.emit degani=> manashu ulangan odam un yozilgan xabar.
+  socket.emit("greetMsg", { text: "welcome" }); //socket.emitni postmanda greetMsg deb nomladik. xabarga welcom dedim
+  io.emit("infoMsg", { total: online_users }); // io.emit=> hamma odamga userlar sonini share qildim. va uyerda onlain userlar soni buladi.
+
+  socket.on("disconnect", function () {  // ulangan userimiz boglanolmaganda,
+    online_users--; // onlain userlar sonini kamaytirish kerak.
+    socket.broadcast.emit("infoMsg", { total: online_users }); // socket.broadcast.emit=> ulangan odamdan tashqari qolgan odamlar.  
+    console.log(("client disconnected, total:", online_users)); // serverda malumotlar kurinishida onlain userlar sonni kiritdim. 
+  });
+
+  socket.on("createMsg", function (data) { // biror bir user xabar yozsin, yani createMsg kirib kelgan vaqtda 
+    console.log("createMsg:",  data); // uyerdan malumot abul qilsin.
+    io.emit("newMsg", data); //  io.emmet=> hamma bog'lanuvchilarga degani.
+    // malumotni hamma qabul qilsin. data bu qabul
+  });
+});
+
+// socket.emit(); => sending msg to connected one user
+// socket.broadcast.emit(); => sending msg to other users, except that ONE USER
+// io.emit(); => ending msg to all users
+
+// finish: SOCKET.IO BACKEND SERVER
+
+module.exports = server; 
