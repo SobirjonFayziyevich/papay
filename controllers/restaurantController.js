@@ -162,7 +162,7 @@ restaurantController.validateAuthRestaurant=(req, res, next) => {
     if (req.session?.member?.mb_type === "RESTAURANT") {
         req.member=req.session.member;
         next();
-    } else
+    } els
         res.json({
             state: "fail",
             message: "only authenticated members with restaurant type"

@@ -168,10 +168,6 @@ async getMemberFollowersData(member, inquiry) {
   } catch(err) {
     throw err;
   }
+ }
 }
-
-
-
-}
-
 module.exports = Follow;

@@ -45,8 +45,7 @@ productController.addNewProduct = async (req, res) => {       // hamma productla
     try {
         console.log("POST: cont/addNewProduct");
         assert(req.files, Definer.general_err3);           // fayl yuklanishida xatolik bulsa, xatoni chiqarib beradi.
-
-        const product = new Product();            //  Product service classi asosida product hosil qilib olayopmiz.
+         const product = new Product();            //  Product service classi asosida product hosil qilib olayopmiz.
         let data = req.body;                               // req.body sidan kelayotgan malumotlarni data yozayopmiz.
 
         data.product_images = req.files.map((ele) => {    // req filedan olgan malumotlarni map qilgan holatda, pathni qaytarib yuboramiz.
