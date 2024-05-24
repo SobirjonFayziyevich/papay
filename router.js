@@ -9,9 +9,9 @@ const communityController = require("./controllers/communityController");
 const followController = require("./controllers/followController");
 const restaurantController = require("./controllers/restaurantController");
 const uploader_community = require("./utils/upload-multer")("community"); //community adressi.
-// community argumenti asosida uploader objectini yasab beradi,
+
 const uploader_member = require("./utils/upload-multer")("members"); //members adressi.
-// member argumenti asosida uploader objectini yasab beradi,
+
 
 /*******************************************
  *           RECT  API (REACT UN)           *
@@ -88,11 +88,10 @@ router.get(
 
 router.post(
   "/orders/edit",
-  memberController.retrieveAuthMember, //memberControllerga authenticated bulgan userni chaqirib oldim.
+  memberController.retrieveAuthMember, 
   orderController.editChosenOrder
-); //orderControllerimizdan editCosenOrder methodimizni chaqirib oldim.
+); 
 
-// API URL => community/create, orders/edit, restaurant, products mamashu mathodlar API URl hisoblanadi.
 // COMMUNITY RELATED ROUTERS START:
 router.post(
   "/community/image",

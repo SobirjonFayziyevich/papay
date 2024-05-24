@@ -1,7 +1,5 @@
-// expressni ichidan routerni olib chiqayopmiz.
-// membercontrollerni chaqirib olayopmiz.
-const express = require("express"),
-  router_bssr = express.Router();
+const express = require("express");
+const router_bssr = express.Router();
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
 const uploader_product = require("./utils/upload-multer")("products");

@@ -88,31 +88,6 @@ class Restaurant {
         }
       }
 
-    // async getChosenRestaurantData(member, id) {
-    //     try {
-    //         id = shapeIntoMongooseObjectId(id);  //idni shape qilayopmiz.yani mongDB objectiga ugirib olmoqchiman.
-
-    //         if(member) {   //agar loged bulmagan user bulmasa bu qatnashmaydi.
-    //             const member_obj = new Member();   //Product Service modelni ichida Member Service modelni ishkatayopmizz.
-    //             await member_obj.viewChosenItemByMember(member, id, "member");  //member => kim, id => nima, product => type bulayopti.
-    //         }
-
-    //         const result = await this.memberModel.findOne({
-    //             _id: id,
-    //             mb_status: "ACTIVE",
-    //         })
-    //         .exec();
-    //         assert.ok(result, Definer.general_err2);
-
-    //         return result;
-
-    //     } catch (err){
-    //       throw err;  
-    //     }
-    // }
-
-
-
     async getAllRestaurantsData() {
         try {
             let result = await this.memberModel

@@ -1,6 +1,6 @@
-const path = require('path');         //core package
+const path = require('path');         
 const multer = require('multer');
-const uuid = require('uuid');                 //32 xonali uuuid yasab beradi
+const uuid = require('uuid');                
 
 /* MULTER IMAGE UPLOADER*/
 function getTargetImageStorage(address) {
@@ -10,7 +10,7 @@ function getTargetImageStorage(address) {
         },
         filename: (req, file, cb) => {
             console.log(file);
-            const extension = path.parse(file.originalname).ext; //ext bu originalnamedagi .jpeg extentionni olib beradi.
+            const extension = path.parse(file.originalname).ext; 
             const random_name = uuid.v4() + extension;
             cb(null, random_name);
         },
@@ -18,6 +18,6 @@ function getTargetImageStorage(address) {
 }
 const makeUploader = (address) => {
     const storage = getTargetImageStorage(address);
-    return multer({ storage: storage }); //1-storage multerni talab etilgan indexi
+    return multer({ storage: storage }); 
 };
-module.exports = makeUploader;
+module.exports = makeUploader;  

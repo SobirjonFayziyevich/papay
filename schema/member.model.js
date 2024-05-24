@@ -34,7 +34,7 @@ const memberSchema= new mongoose.Schema({ // (class deb nomladik) Schema yaratib
         },
         mb_status: {
             type: String,
-            required: false,
+            required: false, 
             default: "ACTIVE",
             enum: {
                 values: member_status_enums,
