@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router(); // expressni ichidan routerni olib chiqayopmiz.
-const memberController = require("./controllers/memberController"); // membercontrollerni chaqirib olayopmiz.
+const memberController = require("./controllers/memberController"); 
 const productController = require("./controllers/productController");
 const { getChosenMember } = require("./controllers/memberController");
 const { getAllProducts } = require("./controllers/productController");
@@ -8,9 +8,9 @@ const orderController = require("./controllers/orderController");
 const communityController = require("./controllers/communityController");
 const followController = require("./controllers/followController");
 const restaurantController = require("./controllers/restaurantController");
-const uploader_community = require("./utils/upload-multer")("community"); //community adressi.
+const uploader_community = require("./utils/upload-multer")("community"); 
 
-const uploader_member = require("./utils/upload-multer")("members"); //members adressi.
+const uploader_member = require("./utils/upload-multer")("members"); 
 
 
 /*******************************************
@@ -18,9 +18,9 @@ const uploader_member = require("./utils/upload-multer")("members"); //members a
  *********************************************/
 
              // Member related routers
-router.post("/signup", memberController.signup); // membercontrollerni ichidagi signupga borayopti.
-router.post("/login", memberController.login); // membercontrollerni ichidagi loginga borayopti.
-router.get("/logout", memberController.logout); // membercontrollerni ichidagi logoutga borayopti.
+router.post("/signup", memberController.signup); 
+router.post("/login", memberController.login); 
+router.get("/logout", memberController.logout); 
 
 
 router.get(
