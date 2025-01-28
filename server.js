@@ -18,8 +18,8 @@ mongoose.connect(
     if (err) console.log("ERROR on connection MongoDB");
     else {
       console.log("MongoDB connection success");
-      console.log(goose); // buyerda mongoose clientni beradi.
-      //  module.exports = client;
+     // console.log(goose); // buyerda mongoose clientni beradi.
+      // module.exports = client;
       const server = require("./app");
       let PORT = process.env.PORT || 3000;
       server.listen(PORT, function () {
